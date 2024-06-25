@@ -15,6 +15,12 @@ module tb_request();
      logic [31:0] tb_imemload, tb_dmmload, tb_imemaddr, tb_dmmaddr, tb_dmmstore;
      cuOPType tb_cuOP; 
 
+    always begin
+    tb_clk = 1'b0; 
+    #(CLK_PERIOD / 2.0);
+    tb_clk = 1'b1; 
+    #(CLK_PERIOD / 2.0); 
+    end
 
     
     request DUT(.CLK(tb_clk), .nRST(tb_nRST), .busy_o(tb_busy_o),
@@ -32,30 +38,30 @@ module tb_request();
         tb_ramload = 0;
         tb_cuOP = CU_LB;
 
-        #(CLK_PERIOD)
-        #(CLK_PERIOD)
+         @(negedge tb_clk);
+         @(negedge tb_clk);
 
         tb_nRST = 1;
         tb_busy_o = 1;
         tb_imemaddr = 32'habcdabcd;
         tb_ramload = 32'h12341234;
 
-        #(CLK_PERIOD)
+        @(negedge tb_clk);
         tb_dmmaddr = 32'h56785678;
         tb_ramload = 32'h43214321;
 
-        #(CLK_PERIOD)
+        @(negedge tb_clk);
 
         tb_imemaddr = 32'h11111111;
         tb_ramload = 32'h22222222;
         
         tb_cuOP = CU_SW;
-        #(CLK_PERIOD)
+        @(negedge tb_clk);
 
         tb_dmmstore = 32'h33333333;
         tb_dmmaddr = 32'habcdabcd;
 
-        #(CLK_PERIOD)
+        @(negedge tb_clk);
         tb_imemaddr = 32'h12121212;
         tb_ramload = 32'h23232323;
 
