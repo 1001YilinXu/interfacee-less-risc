@@ -2,7 +2,7 @@
 module request (
     input logic CLK, nRST, busy_o,
     input logic [31:0] imemaddr, dmmaddr, dmmstore, ramload,
-    input logic cuOP,
+    input logic [5:0] cuOP,
     output logic Ren, Wen, 
     output logic [31:0] imemload, dmmload, ramaddr, ramstore
 );

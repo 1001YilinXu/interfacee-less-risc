@@ -61,8 +61,19 @@ module tb_request_unit();
     // test  i_ready and store word instruction
     tb_i_ready = 1;
     tb_d_ready = 0;
-    tb_cuOP = CU_SW; 
-    
+
+    #(CLK_PERIOD)
+    tb_cuOp = CU_SW;
+
+    #(CLK_PERIOD)
+    #(CLK_PERIOD)
+
+    tb_dmmstorei = 32'hDACBDACB;
+    tb_dmmaddri = 32'h01010101;
+    tb_imemaddri = 32'h43214321;
+
+    tb_i_ready = 0;
+    tb_d_ready = 1;
 
 
     end
