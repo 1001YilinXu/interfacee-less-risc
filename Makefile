@@ -13,11 +13,11 @@ TOP_FILE		:=
 
 # Specify the name of componenSt or sub-module files
 # (do not include the source folder in the name)
-COMPONENT_FILES	:= pc.sv
+COMPONENT_FILES	:= writeToReg.sv
 
 # Specify the top level testbench to be simulated
 # (do not include the source folder in the name)
-TB 				:= tb_pc.sv
+TB 				:= tb_writeToReg.sv
 
 # Directories where source code is located
 SRC 			:= src

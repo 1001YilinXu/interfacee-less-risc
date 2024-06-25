@@ -1,18 +1,28 @@
 
 `timescale 1ms / 100us
- 
+
+
 module writeToReg_tb ();
  
-writeToReg DUT(.memload(tb_memload), .PC(tb_PC), .linkReg(tb_linkReg), .aluOut(tb_aluOut),
-.imm(tb_imm), .writeData(tb_writeData), .ALUneg(tb_ALUneg), .cuOP(tb_cuOP));
+typedef enum logic [5:0] {
+		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
+		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
+		CU_LB, CU_LH, CU_LW, CU_LBU, CU_LHU, CU_SB, CU_SH, CU_SW, 
+		CU_ADDI, CU_SLTI, CU_SLTIU, CU_SLIU, CU_XORI, CU_ORI, CU_ANDI, CU_SLLI, CU_SRLI, CU_SRAI, 
+		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
+		CU_ERROR
+	} cuOPType;
+
+
  
-logic [31:0] tb_memload, tb_PC, tb_linkReg, tb_aluOut, tb_imm, tb_writeData;
-logic tb_ALUneg, tb_checking_outputs;
+logic [31:0] tb_memload, tb_pc, tb_aluOut, tb_imm, tb_writeData;
+logic tb_negative, tb_checking_outputs;
 logic [5:0] tb_cuOP;
-integer tb_numOfTests, tb_intermResult;
-string = tb_test_case;
+integer tb_test_num, tb_intermResult;
+string tb_test_case;
  
- 
+writeToReg DUT(.memload(tb_memload), .pc(tb_pc), .aluOut(tb_aluOut),
+.imm(tb_imm), .writeData(tb_writeData), .negative(tb_negative), .cuOP(tb_cuOP));
  
  
 localparam CLK_PERIOD = 10;
@@ -26,22 +36,14 @@ always begin
     #(CLK_PERIOD / 2.0);
 end
  
-task reset_dut;
-    @(negedge tb_clk);
-    tb_nRST = 1'b0;
-    @(negedge tb_clk);
-    tb_nRST = 1'b1;
-    @(posedge tb_clk);
-endtask
- 
 task checkOut;
     input logic [31:0] exp_out;
-    @(negedge tb_clk);
     tb_checking_outputs = 1'b1;
+	#2;
     if(tb_writeData == exp_out)
-        $info("Correct value to write %0d.", exp_out);
+        $info("Correct value to write %0b.", exp_out);
     else
-        $error("Incorrect value to write. Expected: %0d. Actual: %0d.", exp_out, tb_writeData);
+        $error("Incorrect value to write. Expected: %0b. Actual: %0b.", exp_out, tb_writeData);
     #(1);
     tb_checking_outputs = 1'b0;  
 endtask
@@ -50,34 +52,21 @@ initial begin
     $dumpfile("dump.vcd");
     $dumpvars;
     tb_memload = 32'b0;
-    tb_PC = 32'b0;
-    tb_linkReg = 32'b0;
+    tb_pc = 32'b0;
     tb_aluOut = 32'b0;
     tb_imm = 32'b0;
-    tb_ALUNeg = 0;
+    tb_negative = 0;
     tb_cuOP = 6'b0;
-    tb_writeData = 32'b0;
-    tb_numOfTests = 100;
     tb_test_num = -1;
     tb_test_case = "Initializing";
     tb_intermResult = 0;
-	// ************************************************************************
-  // Test Case 0: Power-on-Reset of the DUT
-  // ************************************************************************
-        //Check to see if reset address is correct
-        tb_test_num += 1;
-        tb_test_case = "Test Case 0: Power-on-Reset of the DUT";
-        $display("\n\n%s", tb_test_case);
-        tb_nRST = 0;
-        #2;
-        checkOut(32'b0);
-        @(negedge tb_clk);
-        tb_nRST = 1;
- 	// ************************************************************************
+#2;
+// ************************************************************************
   // Test Case 1: Test LB case
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 1: Testing LB";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'haaaaaaaa;
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LB;
@@ -89,6 +78,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 2: Testing LH";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbaba;
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LH;
@@ -100,6 +90,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 3: Testing LW";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'habababab;
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LW;
@@ -111,6 +102,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 4: Testing LBU";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'haaaaaaaa;
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LBU;
@@ -122,6 +114,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 5: Testing LHU";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbbbb;
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LHU;
@@ -133,6 +126,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 6: Testing AUIPC";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbbbb;
 			tb_pc = 32'hbbbbbbbb;
 			tb_imm = 32'd10;
@@ -146,6 +140,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 7: Testing LUI";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbbbb;
 			tb_pc = 32'hbbbbbbbb;
 			tb_imm = 32'd10;
@@ -159,6 +154,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 8: Testing JAL";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbbbb;
 			tb_pc = 32'hbbbbbbbb;
 			tb_imm = 32'd10;
@@ -172,6 +168,7 @@ initial begin
   // ************************************************************************
 			tb_test_num += 1;
       tb_test_case = "Test Case 9: Testing JALR";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbbbb;
 			tb_pc = 32'hbbbbbbbb;
 			tb_imm = 32'd10;
@@ -184,7 +181,8 @@ initial begin
   // Test Case 10: Checking other OPs
   // ************************************************************************
 			tb_test_num += 1;
-      tb_test_case = "Test Case 9: Testing JALR";
+      tb_test_case = "Test Case 10: Testing other cases";
+	  $display("\n\n%s", tb_test_case);
 			tb_memload = 32'hbbbbbbbb;
 			tb_pc = 32'hbbbbbbbb;
 			tb_imm = 32'd10;
