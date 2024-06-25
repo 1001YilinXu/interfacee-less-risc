@@ -9,9 +9,9 @@ export LD_LIBRARY_PATH := /home/shay/a/ece270/lib:$(LD_LIBRARY_PATH)
 
 # Specify the name of the top level file
 # (do not include the source folder in the name)
-TOP_FILE		:= top.sv
+TOP_FILE		:= pc.sv
 
-# Specify the name of component or sub-module files
+# Specify the name of componenSt or sub-module files
 # (do not include the source folder in the name)
 COMPONENT_FILES	:= pc.sv
 
