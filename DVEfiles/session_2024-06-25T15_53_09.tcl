@@ -1,6 +1,6 @@
 # Begin_DVE_Session_Save_Info
 # DVE full session
-# Saved on Tue Jun 25 15:04:00 2024
+# Saved on Tue Jun 25 15:53:09 2024
 # Designs open: 1
 #   Sim: /home/nanohub/eeshtref/STARS2024/interfacee-less-risc/sim_build/simv
 # Toplevel windows open: 1
@@ -65,7 +65,7 @@ if {![gui_exist_window -window TopLevel.1]} {
 } else { 
     set TopLevel.1 TopLevel.1
 }
-gui_show_window -window ${TopLevel.1} -show_state normal -rect {{25 198} {1754 898}}
+gui_show_window -window ${TopLevel.1} -show_state normal -rect {{28 168} {1749 860}}
 
 # ToolBar settings
 gui_set_toolbar_attributes -toolbar {TimeOperations} -dock_state top
@@ -112,23 +112,23 @@ gui_show_toolbar -toolbar {Testbench}
 # End ToolBar settings
 
 # Docked window settings
-set HSPane.1 [gui_create_window -type HSPane -parent ${TopLevel.1} -dock_state left -dock_on_new_line true -dock_extent 138]
+set HSPane.1 [gui_create_window -type HSPane -parent ${TopLevel.1} -dock_state left -dock_on_new_line true -dock_extent 130]
 catch { set Hier.1 [gui_share_window -id ${HSPane.1} -type Hier] }
-gui_set_window_pref_key -window ${HSPane.1} -key dock_width -value_type integer -value 138
+gui_set_window_pref_key -window ${HSPane.1} -key dock_width -value_type integer -value 130
 gui_set_window_pref_key -window ${HSPane.1} -key dock_height -value_type integer -value -1
 gui_set_window_pref_key -window ${HSPane.1} -key dock_offset -value_type integer -value 0
-gui_update_layout -id ${HSPane.1} {{left 0} {top 0} {width 137} {height 123} {dock_state left} {dock_on_new_line true} {child_hier_colhier 140} {child_hier_coltype 100} {child_hier_colpd 0} {child_hier_col1 0} {child_hier_col2 1} {child_hier_col3 -1}}
-set DLPane.1 [gui_create_window -type DLPane -parent ${TopLevel.1} -dock_state left -dock_on_new_line true -dock_extent 138]
+gui_update_layout -id ${HSPane.1} {{left 0} {top 0} {width 129} {height 242} {dock_state left} {dock_on_new_line true} {child_hier_colhier 140} {child_hier_coltype 100} {child_hier_colpd 0} {child_hier_col1 0} {child_hier_col2 1} {child_hier_col3 -1}}
+set DLPane.1 [gui_create_window -type DLPane -parent ${TopLevel.1} -dock_state left -dock_on_new_line true -dock_extent 130]
 catch { set Data.1 [gui_share_window -id ${DLPane.1} -type Data] }
-gui_set_window_pref_key -window ${DLPane.1} -key dock_width -value_type integer -value 138
-gui_set_window_pref_key -window ${DLPane.1} -key dock_height -value_type integer -value 123
+gui_set_window_pref_key -window ${DLPane.1} -key dock_width -value_type integer -value 130
+gui_set_window_pref_key -window ${DLPane.1} -key dock_height -value_type integer -value 242
 gui_set_window_pref_key -window ${DLPane.1} -key dock_offset -value_type integer -value 0
-gui_update_layout -id ${DLPane.1} {{left 0} {top 0} {width 137} {height 123} {dock_state left} {dock_on_new_line true} {child_data_colvariable 140} {child_data_colvalue 100} {child_data_coltype 40} {child_data_col1 0} {child_data_col2 1} {child_data_col3 2}}
-set Console.1 [gui_create_window -type Console -parent ${TopLevel.1} -dock_state bottom -dock_on_new_line true -dock_extent 572]
-gui_set_window_pref_key -window ${Console.1} -key dock_width -value_type integer -value 1726
-gui_set_window_pref_key -window ${Console.1} -key dock_height -value_type integer -value 572
+gui_update_layout -id ${DLPane.1} {{left 0} {top 0} {width 129} {height 242} {dock_state left} {dock_on_new_line true} {child_data_colvariable 140} {child_data_colvalue 100} {child_data_coltype 40} {child_data_col1 0} {child_data_col2 1} {child_data_col3 2}}
+set Console.1 [gui_create_window -type Console -parent ${TopLevel.1} -dock_state bottom -dock_on_new_line true -dock_extent 344]
+gui_set_window_pref_key -window ${Console.1} -key dock_width -value_type integer -value 1722
+gui_set_window_pref_key -window ${Console.1} -key dock_height -value_type integer -value 344
 gui_set_window_pref_key -window ${Console.1} -key dock_offset -value_type integer -value 0
-gui_update_layout -id ${Console.1} {{left 0} {top 0} {width 1729} {height 571} {dock_state bottom} {dock_on_new_line true}}
+gui_update_layout -id ${Console.1} {{left 0} {top 0} {width 1721} {height 343} {dock_state bottom} {dock_on_new_line true}}
 #### Start - Readjusting docked view's offset / size
 set dockAreaList { top left right bottom }
 foreach dockArea $dockAreaList {
@@ -151,8 +151,8 @@ gui_sync_global -id ${TopLevel.1} -option true
 
 # MDI window settings
 set Source.1 [gui_create_window -type {Source}  -parent ${TopLevel.1}]
-gui_show_window -window ${Source.1} -show_state normal -rect {{0 0} {507 87}}
-gui_update_layout -id ${Source.1} {{left 0} {top 1} {width 512} {height 1} {show_state normal} {dock_state undocked} {dock_on_new_line false}}
+gui_show_window -window ${Source.1} -show_state normal -rect {{0 0} {539 192}}
+gui_update_layout -id ${Source.1} {{left 0} {top 0} {width 544} {height 217} {show_state normal} {dock_state undocked} {dock_on_new_line false}}
 
 # End MDI window settings
 
@@ -208,7 +208,7 @@ gui_change_stack_mode -mode list
 # Post database loading setting...
 
 # Restore C1 time
-gui_set_time -C1_only 7720
+gui_set_time -C1_only 6020
 
 
 
@@ -241,7 +241,9 @@ gui_view_scroll -id ${Hier.1} -horizontal -set 0
 gui_list_set_filter -id ${Data.1} -list { {Buffer 1} {Input 1} {Others 1} {Linkage 1} {Output 1} {LowPower 1} {Parameter 1} {All 1} {Aggregate 1} {LibBaseMember 1} {Event 1} {Assertion 1} {Constant 1} {Interface 1} {BaseMembers 1} {Signal 1} {$unit 1} {Inout 1} {Variable 1} }
 gui_list_set_filter -id ${Data.1} -text {*}
 gui_list_show_data -id ${Data.1} {tb_PCaddr}
-gui_view_scroll -id ${Data.1} -vertical -set 0
+gui_show_window -window ${Data.1}
+catch { gui_list_select -id ${Data.1} {tb_PCaddr.tb_clk tb_PCaddr.tb_cuOP tb_PCaddr.tb_iready tb_PCaddr.tb_nRST tb_PCaddr.tb_ALUneg tb_PCaddr.tb_Zero tb_PCaddr.tb_checking_outputs tb_PCaddr.tb_rs1Read tb_PCaddr.tb_signExtend tb_PCaddr.tb_PCaddr tb_PCaddr.tb_intermResult tb_PCaddr.tb_numOfTests tb_PCaddr.tb_test_num tb_PCaddr.tb_test_case }}
+gui_view_scroll -id ${Data.1} -vertical -set 149
 gui_view_scroll -id ${Data.1} -horizontal -set 0
 gui_view_scroll -id ${Hier.1} -vertical -set 0
 gui_view_scroll -id ${Hier.1} -horizontal -set 0
@@ -250,13 +252,14 @@ gui_view_scroll -id ${Hier.1} -horizontal -set 0
 gui_src_value_annotate -id ${Source.1} -switch false
 gui_set_env TOGGLE::VALUEANNOTATE 0
 gui_open_source -id ${Source.1}  -replace -active tb_PCaddr /home/nanohub/eeshtref/STARS2024/interfacee-less-risc/src/tb_pc.sv
-gui_view_scroll -id ${Source.1} -vertical -set 6480
+gui_view_scroll -id ${Source.1} -vertical -set 6384
 gui_src_set_reusable -id ${Source.1}
 # Restore toplevel window zorder
 # The toplevel window could be closed if it has no view/pane
 if {[gui_exist_window -window ${TopLevel.1}]} {
 	gui_set_active_window -window ${TopLevel.1}
 	gui_set_active_window -window ${Source.1}
+	gui_set_active_window -window ${DLPane.1}
 }
 #</Session>
 

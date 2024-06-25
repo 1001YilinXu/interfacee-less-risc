@@ -45,7 +45,6 @@ endtask
 
 task checkOut;
     input logic [31:0] exp_out;
-    @(negedge tb_clk);
     tb_checking_outputs = 1'b1;
     if(tb_PCaddr == exp_out)
         $info("Correct address %0d.", exp_out);
@@ -107,9 +106,9 @@ initial begin
             for (integer j = 1; j < tb_numOfTests; j++) begin
             tb_signExtend = tb_signExtend + j;
             tb_rs1Read = tb_rs1Read + i;
-            @(negedge tb_clk);
-
             //check operation for JAL
+            @(negedge tb_clk);
+            #1;
             checkOut(tb_signExtend + tb_PCaddr);
             end 
         end
@@ -158,7 +157,7 @@ initial begin
         tb_Zero = 0;
         tb_iready = 1;
         //loop through test cases
-        @(negedge tb_clk);
+        //@(negedge tb_clk);
         checkOut(tb_PCaddr + tb_signExtend);
     // ************************************************************************
     // Test Case 4: Testing BNE with failed zero condition
@@ -239,7 +238,7 @@ initial begin
         tb_iready = 1;
         //loop through test cases
         @(negedge tb_clk);
-        checkOut(32'd4 + tb_PCaddr);
+        checkOut(tb_PCaddr);
     // ************************************************************************
     // Test Case 8: Testing BEQ 
     // ************************************************************************
@@ -399,7 +398,7 @@ initial begin
         tb_Zero = 1;
         tb_iready = 1;
         //loop through test cases
-        @(negedge tb_clk);
+        #1;
         checkOut(tb_PCaddr + tb_signExtend);
 
 

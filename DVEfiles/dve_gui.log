@@ -1,183 +1,88 @@
 Chronologic VCS simulator copyright 1991-2023
 Contains Synopsys proprietary information.
-Compiler version V-2023.12-SP1-1_Full64; Runtime version V-2023.12-SP1-1_Full64;  Jun 25 15:06 2024
+Compiler version V-2023.12-SP1-1_Full64; Runtime version V-2023.12-SP1-1_Full64;  Jun 25 15:56 2024
 VCD+ Writer V-2023.12-SP1-1_Full64 Copyright (c) 1991-2023 by Synopsys Inc.
 The file '/home/nanohub/eeshtref/STARS2024/interfacee-less-risc/inter.vpd' was opened successfully.
 
 
 Test Case 0: Power-on-Reset of the DUT
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 10000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 2000 us
 Correct address 0.
 
 
 Test Case 1: JAL operation
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 70000 us
-Correct address 5.
+Error: "src/tb_pc.sv", 52: tb_PCaddr.checkOut: at time 51000 us
+Incorrect address. Expected: 5. Actual: 4.
 
 
 Test Case 2: JALR operation
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 120000 us
-Correct address 2.
+Error: "src/tb_pc.sv", 52: tb_PCaddr.checkOut: at time 90000 us
+Incorrect address. Expected: 2. Actual: 1.
 
 
 Test Case 3: Testing BEQ with failed zero condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 170000 us
-Incorrect address. Expected: 2. Actual: 6.
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 125000 us
+Correct address 0.
 
 
 Test Case 4: Testing BNE with failed zero condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 220000 us
-Incorrect address. Expected: 4. Actual: 8.
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 160000 us
+Correct address 4.
 
 
 Test Case 5: Testing BLT with failed negative condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 270000 us
-Incorrect address. Expected: 4. Actual: 8.
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 200000 us
+Correct address 4.
 
 
 Test Case 6: Testing BGE with failed negative condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 320000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 240000 us
 Correct address 4.
 
 
 Test Case 7: Testing BGEU with failed negative condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 370000 us
-Incorrect address. Expected: 4. Actual: 0.
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 280000 us
+Correct address 0.
 
 
 Test Case 8: Testing BEQ with passed condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 420000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 320000 us
 Correct address 0.
 
 
 Test Case 9: Testing BNE with passed condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 470000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 360000 us
 Correct address 0.
 
 
 Test Case 10: Testing BLT with passed condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 520000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 400000 us
 Correct address 0.
 
 
 Test Case 11: Testing BGE with equal to condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 570000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 440000 us
 Correct address 0.
 
 
 Test Case 12: Testing BGE with negative = 0
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 620000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 480000 us
 Correct address 0.
 
 
 Test Case 13: Testing BLTU with negative = 0
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 670000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 520000 us
 Correct address 0.
 
 
 Test Case 14: Testing BGEU with negative = 0
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 720000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 560000 us
 Correct address 0.
 
 
 Test Case 15: Testing BGEU with zero = 1
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 770000 us
+Info: "src/tb_pc.sv", 50: tb_PCaddr.checkOut: at time 596000 us
 Correct address 0.
-$finish called from file "src/tb_pc.sv", line 407.
-$finish at simulation time                 7720
-Simulation complete, time is 772000 us.
-Chronologic VCS simulator copyright 1991-2023
-Contains Synopsys proprietary information.
-Compiler version V-2023.12-SP1-1_Full64; Runtime version V-2023.12-SP1-1_Full64;  Jun 25 15:06 2024
-VCD+ Writer V-2023.12-SP1-1_Full64 Copyright (c) 1991-2023 by Synopsys Inc.
-The file '/home/nanohub/eeshtref/STARS2024/interfacee-less-risc/inter.vpd' was opened successfully.
-
-Warning-[NVPD-UNSUPP-OBJ] Object not supported for VPD dumping
-  The object "tb_PCaddr.tb_test_case" is not currently supported for dumping 
-  to a VPD file.  This object will not be dumped, but other objects will 
-  continue to be dumped.
-  To avoid this message please remove this object from the dump command.
-
-
-
-Test Case 0: Power-on-Reset of the DUT
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 10000 us
-Correct address 0.
-
-
-Test Case 1: JAL operation
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 70000 us
-Correct address 5.
-
-
-Test Case 2: JALR operation
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 120000 us
-Correct address 2.
-
-
-Test Case 3: Testing BEQ with failed zero condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 170000 us
-Incorrect address. Expected: 2. Actual: 6.
-
-
-Test Case 4: Testing BNE with failed zero condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 220000 us
-Incorrect address. Expected: 4. Actual: 8.
-
-
-Test Case 5: Testing BLT with failed negative condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 270000 us
-Incorrect address. Expected: 4. Actual: 8.
-
-
-Test Case 6: Testing BGE with failed negative condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 320000 us
-Correct address 4.
-
-
-Test Case 7: Testing BGEU with failed negative condition
-Error: "src/tb_pc.sv", 53: tb_PCaddr.checkOut: at time 370000 us
-Incorrect address. Expected: 4. Actual: 0.
-
-
-Test Case 8: Testing BEQ with passed condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 420000 us
-Correct address 0.
-
-
-Test Case 9: Testing BNE with passed condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 470000 us
-Correct address 0.
-
-
-Test Case 10: Testing BLT with passed condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 520000 us
-Correct address 0.
-
-
-Test Case 11: Testing BGE with equal to condition
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 570000 us
-Correct address 0.
-
-
-Test Case 12: Testing BGE with negative = 0
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 620000 us
-Correct address 0.
-
-
-Test Case 13: Testing BLTU with negative = 0
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 670000 us
-Correct address 0.
-
-
-Test Case 14: Testing BGEU with negative = 0
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 720000 us
-Correct address 0.
-
-
-Test Case 15: Testing BGEU with zero = 1
-Info: "src/tb_pc.sv", 51: tb_PCaddr.checkOut: at time 770000 us
-Correct address 0.
-$finish called from file "src/tb_pc.sv", line 407.
-$finish at simulation time                 7720
-Simulation complete, time is 772000 us.
+$finish called from file "src/tb_pc.sv", line 406.
+$finish at simulation time                 5980
+Simulation complete, time is 598000 us.
