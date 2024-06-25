@@ -72,7 +72,8 @@ module tb_request();
         tb_ramload = 32'h23232323;
 
 
-
+        #1;
+        $finish;
 
     end
 
