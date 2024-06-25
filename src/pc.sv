@@ -18,7 +18,6 @@ input logic ALUneg, Zero, iready, clk, nRST
             logic[31:0] next_pc, PC;
             assign PCaddr = PC;
             logic [31:0] inter_next_pc;
-            
 
 typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
@@ -37,9 +36,10 @@ typedef enum logic [5:0] {
                     PC <= next_pc;
 
            always_comb begin
+            inter_next_pc = rs1Read + signExtend;
             if (iready)
                 case(cuOP)
-                    CU_JALR: next_pc = 32'b0;
+                    CU_JALR: next_pc = {inter_next_pc[31:1], 1'b0};
                     CU_JAL: next_pc = PC + signExtend;
                     CU_BEQ: next_pc = (Zero? PC + signExtend: PC + 4);
                     CU_BNE: next_pc = (~Zero? PC + signExtend : PC + 4);
