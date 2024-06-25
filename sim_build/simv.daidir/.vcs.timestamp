@@ -29,8 +29,8 @@
 -sverilog
 /apps/share64/rocky8/synopsys/synopsys-202312/vcs/V-2023.12-SP1-1/linux64/bin/vcs1
 sim_build/simv
-src/tb_pc.sv
-src/pc.sv
+src/tb_control.sv
+src/control.sv
 70
 which_declare=declare -f
 XTERM_VERSION=XTerm(331)
@@ -79,8 +79,8 @@ MODULESHOME=/usr/share/Modules
 MODULEPATH_modshare=/usr/share/Modules/modulefiles:2:/etc/modulefiles:2:/usr/share/modulefiles:2
 MODULEPATH=/etc/scl/modulefiles:/etc/scl/modulefiles:/etc/scl/modulefiles:/usr/share/Modules/modulefiles:/etc/modulefiles:/usr/share/modulefiles
 MFLAGS=
-MAKE_TERMOUT=/dev/pts/2
-MAKE_TERMERR=/dev/pts/2
+MAKE_TERMOUT=/dev/pts/3
+MAKE_TERMERR=/dev/pts/3
 MAKELEVEL=1
 MAKEFLAGS=
 LOADEDMODULES=
@@ -105,13 +105,13 @@ BASH_FUNC__module_raw%%=() {  unset _mlshdbg;_ if [ "${MODULES_SILENT_SHELL_DEBU
 0
 0
 3
-1719327638 src/pc.sv
-1719330978 src/tb_pc.sv
+1719339230 src/control.sv
+1719338664 src/tb_control.sv
 1714014380 /apps/share64/rocky8/synopsys/synopsys-202312/vcs/V-2023.12-SP1-1/linux64/lib/vcsdp_lite.tab
 4
 1714016057 /apps/share64/rocky8/synopsys/synopsys-202312/vcs/V-2023.12-SP1-1/linux64/lib/libvirsim.so
 1714015330 /apps/share64/rocky8/synopsys/synopsys-202312/vcs/V-2023.12-SP1-1/linux64/lib/liberrorinf.so
 1714015281 /apps/share64/rocky8/synopsys/synopsys-202312/vcs/V-2023.12-SP1-1/linux64/lib/libsnpsmalloc.so
 1714015327 /apps/share64/rocky8/synopsys/synopsys-202312/vcs/V-2023.12-SP1-1/linux64/lib/libvfs.so
-1719330994 sim_build/simv.daidir
+1719339237 sim_build/simv.daidir
 -1 partitionlib

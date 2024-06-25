@@ -9,17 +9,24 @@ synopsys::dump -autoflush on -fid VPD0
 set ::dve_fid VPD0
 synUtils::setDVEInitPhase 0
 ucliCore::getToolPID
-synUtils::sendTool -active _icl_setToolSocket /tmp/smlnp5bJOou
-synUtils::sendTool -active {_icl_start_rpc -version "V-2023.12-SP1-1_Full64" -sync_file /tmp/vcs_dve_rpc.eeshtref.35624}
-synUtils::sendTool -active {_icl_createSharedMemory /tmp/vcs_dve_general.eeshtref.35624}
+synUtils::sendTool -active _icl_setToolSocket /tmp/smlnp8m5sFk
+synUtils::sendTool -active {_icl_start_rpc -version "V-2023.12-SP1-1_Full64" -sync_file /tmp/vcs_dve_rpc.eeshtref.50595}
+synUtils::sendTool -active {_icl_createSharedMemory /tmp/vcs_dve_general.eeshtref.50595}
 config endofsim noexit
 config onfail enable all
 config syscaddplainmembers
 config syscaddsourcenames
 config syscaddstructtypes
 synopsys::listing -disable
-synopsys::run
+ucliGUI::vpdAddHierarchy -scope tb_control -depth 1 -file /home/nanohub/eeshtref/STARS2024/interfacee-less-risc/inter.vpd; synopsys::dump -flush VPD0
+synopsys::dump -add {tb_control.tb_aluOP tb_control.tb_cuOP tb_control.tb_imm tb_control.tb_instructions tb_control.tb_rd tb_control.tb_reg_1 tb_control.tb_reg_2 } -aggregates  -fid VPD0
+run
 set ucliGUI::state
 set ucliGUI::state
 set ucliGUI::state
 set ucliGUI::state
+if [catch {gui_sim_terminate}] {gui_sim_terminate -kill}
+synopsys::finish
+set ucliGUI::state
+set ucliGUI::state
+ucli_exit
