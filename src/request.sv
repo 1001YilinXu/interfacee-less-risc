@@ -1,3 +1,11 @@
+
+module request (
+    input logic CLK, nRST, busy_o,
+    input logic [31:0] imemaddr, dmmaddr, dmmstore, ramload,
+    input logic cuOP,
+    output logic Ren, Wen, 
+    output logic [31:0] imemload, dmmload, ramaddr, ramstore
+);
 typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
 		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
@@ -6,13 +14,6 @@ typedef enum logic [5:0] {
 		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
 		CU_ERROR
 	} cuOPType;	
-module request (
-    input logic CLK, nRST, busy_o,
-    input logic [31:0] imemaddr, dmmaddr, dmmstore, ramload,
-    input cuOPType cuOP,
-    output logic Ren, Wen, 
-    output logic [31:0] imemload, dmmload, ramaddr, ramstore
-);
 logic i_ready, d_ready, dmmRen, dmmWen, imemRen;
 logic [31:0] imemaddr_co, dmmaddr_co, dmmstore_co, dmmload_co, imemload_co;
 
