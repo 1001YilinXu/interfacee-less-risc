@@ -20,7 +20,7 @@ COMPONENT_FILES	:= signExtender.sv
 TB 				:= signExtender_tb.sv
 
 # Directories where source code is located
-SRC 			:= source
+SRC 			:= src
 
 # Simulation target
 SIM_SOURCE		:= sim_source

@@ -1,3 +1,11 @@
+
+
+module signExtender (
+input logic[19:0] imm,
+input logic[5:0] CUOp,
+output logic[31:0] immOut
+);
+
 	typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
 		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
@@ -7,15 +15,10 @@
 		CU_ERROR
 	} cuOPType;
 
-module signExtender (
-input logic[19:0] imm,
-input logic[5:0]CUOp,
-output logic[31:0] immOut
-);
 always_comb begin
 //JAL operation
 if (CUOp == CU_JAL)
-    immOut = {12'b0, imm[19], imm[9:0], imm[10], imm[18:11]};
+    immOut = {{12{imm[19]}}, imm[19], imm[9:0], imm[10], imm[18:11]};
 //All branch operations
 else if (CUOp == CU_BEQ || CUOp == CU_BNE || CUOp == CU_BLT || CUOp == CU_BGE || CUOp == CU_BLTU || CUOp == CU_BGEU)
     immOut = {{20{imm[11]}}, imm[11], imm[9:4], imm[3:0], imm[10]};
@@ -26,6 +29,6 @@ else if (CUOp == CU_ADDI || CUOp == CU_SUB || CUOp == CU_ADD || CUOp == CU_SLTI 
 else if (CUOp == CU_LUI || CUOp == CU_AUIPC)
     immOut = {imm, 12'b0};
 else
-    immOut = {12'b0, imm};
+    immOut = {{20{imm[11]}}, imm[11:0]};
 end
 endmodule
