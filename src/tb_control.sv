@@ -5,9 +5,16 @@
 // regwrite, Alusrc 1 bit 
 // imm 20 bits 
 
-`include "src/control.sv"
-
 `timescale 1 ms/ 100us
+
+typedef enum logic [5:0] {
+		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
+		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
+		CU_LB, CU_LH, CU_LW, CU_LBU, CU_LHU, CU_SB, CU_SH, CU_SW, 
+		CU_ADDI, CU_SLTI, CU_SLTIU, CU_SLIU, CU_XORI, CU_ORI, CU_ANDI, CU_SLLI, CU_SRLI, CU_SRAI, 
+		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
+		CU_ERROR
+	} cuOPType;	
 
 module tb_control();
 logic [31:0] tb_instructions;
@@ -18,7 +25,7 @@ cuOPType tb_cuOP;
 logic tb_regWrite, tb_memWrite, tb_memRead, tb_aluSrc;
 
 parameter PERIOD = 10;
-controller DUT (.cuOP(tb_cuOP), .instruction(tb_instructions), 
+control DUT (.cuOP(tb_cuOP), .instruction(tb_instructions), 
 .reg_1(tb_reg_1), .reg_2(tb_reg_2), .rd(tb_rd),
 .imm(tb_imm), .aluOP(tb_aluOP), .regWrite(tb_regWrite), .memWrite(tb_memWrite), .memRead(tb_memRead), .aluSrc(tb_aluSrc));
  
@@ -36,17 +43,17 @@ controller DUT (.cuOP(tb_cuOP), .instruction(tb_instructions),
         #(PERIOD)
         tb_instructions = 32'hFAC78567; // JALR
         #(PERIOD)
-        tb_instructions = 32'h6EDA88E7;// BEQ
+        tb_instructions = 32'h6EDA88E3;// BEQ
         #(PERIOD)
-        tb_instructions = 32'h6EDA98E7;// BNE
+        tb_instructions = 32'h6EDA98E3;// BNE
         #(PERIOD)
-        tb_instructions = 32'h6EDAC8E7 ;// BGE
+        tb_instructions = 32'h6EDAC8E3 ;// BGE
         #(PERIOD)
-        tb_instructions = 32'h6EDAD8E7; // BLTU
+        tb_instructions = 32'h6EDAD8E3; // BLTU
         #(PERIOD)
-        tb_instructions = 32'h6EDAE8E7; // BEGU
+        tb_instructions = 32'h6EDAE8E3; // BEGU
         #(PERIOD)
-        tb_instructions = 32'h6EDAF8E7; // BGEU
+        tb_instructions = 32'h6EDAF8E3; // BGEU
         #(PERIOD)
         tb_instructions = 32'hABCA8503; // LB
         #(PERIOD)

@@ -1,3 +1,12 @@
+module control(
+	input logic [31:0] instruction,
+	output logic [4:0] reg_1, reg_2, rd,
+	output logic [19:0] imm,
+	output logic [3:0] aluOP,
+	output logic [5:0] cuOP,
+	output logic regWrite, memWrite, memRead, aluSrc
+);
+
 	typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
 		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
@@ -6,7 +15,6 @@
 		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
 		CU_ERROR
 	} cuOPType;	
-
 	typedef enum logic [6:0] {
 		RTYPE = 7'b0110011,
 		ITYPE = 7'b0010011,
@@ -54,16 +62,6 @@
 		AND = 3'b111
 	} rfunc_t;
 
-
-module controller(
-	input logic [31:0] instruction,
-	output logic [4:0] reg_1, reg_2, rd,
-	output logic [19:0] imm,
-	output logic [3:0] aluOP,
-	output logic [5:0] cuOP,
-	output logic regWrite, memWrite, memRead, aluSrc
-);
-
 always_comb begin
 	reg_1 = 0;
 	reg_2 = 0;
@@ -104,7 +102,7 @@ always_comb begin
 		reg_2 = instruction[24:20];
 		imm = {8'b0, instruction[31:25], instruction[11:7]};
 		aluOP = ALU_SUB;
-		casez(instruction[9:7])
+		casez(instruction[14:12])
 		3'b000: cuOP = CU_BEQ;
 		3'b001: cuOP = CU_BNE; 
 		3'b100: cuOP = CU_BLT; 
@@ -122,7 +120,7 @@ always_comb begin
 		aluSrc = 1;
 		memRead = 1;
 		aluOP = ALU_ADD;
-		casez(instruction[9:7])
+		casez(instruction[14:12])
 		3'b000: cuOP = CU_LB; 
 		3'b001: cuOP = CU_LH; 
 		3'b010: cuOP = CU_LW; 
@@ -138,7 +136,7 @@ always_comb begin
 		memWrite = 1;
 		aluSrc = 1;
 		aluOP = ALU_ADD;
-		casez(instruction[9:7])
+		casez(instruction[14:12])
 		3'b000: cuOP = CU_SB;
 		3'b001: cuOP = CU_SH;
 		3'b010: cuOP = CU_SW;
@@ -151,7 +149,7 @@ always_comb begin
 		imm = {8'b0, instruction[31:20]};
 		regWrite = 1;
 		aluSrc = 1;
-		casez(instruction[9:7])
+		casez(instruction[14:12])
 		ADDI: begin
 			aluOP = ALU_ADD;
 			cuOP = CU_ADDI;
@@ -196,7 +194,7 @@ always_comb begin
 		reg_1 = instruction[19:15];
 		reg_2 = instruction[24:20];
 		regWrite = 1;
-		casez(instruction[9:7])
+		casez(instruction[14:12])
 		ADD: begin
 			if(|instruction[31:22])begin
 			aluOP = ALU_ADD;
