@@ -1,6 +1,9 @@
 
 `timescale 1ms / 100us
 
+module tb_alu ();
+
+
 	typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
 		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
@@ -9,8 +12,6 @@
 		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
 		CU_ERROR
 	} cuOPType;	
-
-module tb_alu ();
 
     logic [31:0]tb_inputA, tb_inputB;
     logic [5:0] aluOP;
@@ -37,9 +38,9 @@ module tb_alu ();
     begin
         tb_checking_outputs = 1'b1;
         if(ALUResult == exp_ALU_out)
-            $info("Correct ALU_o: %d.", exp_ALU_out);
+            $info("Correct ALU_o: %b.", exp_ALU_out);
         else
-            $error("Incorrect ALU_o. Expected: %d. Actual: %d.", exp_ALU_out, ALUResult); 
+            $error("Incorrect ALU_o. Expected: %b. Actual: %b.", exp_ALU_out, ALUResult); 
         tb_checking_outputs = 1'b0;  
         #(WAIT);
     end
@@ -50,9 +51,9 @@ module tb_alu ();
     begin
         tb_check_neg_out = 1'b1;
         if(negative == exp_neg)
-            $info("Correct neg out: %d.", exp_neg);
+            $info("Correct neg out: %b.", exp_neg);
         else
-            $error("Incorrect neg out. Expected: %d. Actual: %d.", exp_neg, negative); 
+            $error("Incorrect neg out. Expected: %b. Actual: %b.", exp_neg, negative); 
         tb_check_neg_out = 1'b0;
         #(WAIT);
     end
@@ -63,9 +64,9 @@ module tb_alu ();
     begin
         tb_check_zero_out = 1'b1;
         if(zero == exp_zero)
-            $info("Correct zero out: %0d.", exp_zero);
+            $info("Correct zero out: %b.", exp_zero);
         else
-            $error("Incorrect zero out. Expected: %d. Actual: %d.", exp_zero, zero); 
+            $error("Incorrect zero out. Expected: %b. Actual: %b.", exp_zero, zero); 
         tb_check_zero_out = 1'b0;
         #(WAIT);
     end
@@ -82,6 +83,7 @@ module tb_alu ();
     tb_inputA = 32'd256;
     tb_inputB = 32'd3;
     aluOP = CU_SLL;
+    #10;
     check_ALU_out(32'd2048);
 
     
@@ -91,22 +93,25 @@ module tb_alu ();
     tb_inputA = -32'd256;
     tb_inputB = 32'd3;
     aluOP = CU_SLL;
+    #10;
     check_ALU_out(-32'd2048);
 
     //SRA/SRAI
     tb_test_num += 1; //test case 2
     $display("SRA %d", tb_test_num);
-    tb_inputA = -32'd9984;
+    tb_inputA = 32'b11111111111111111111111001110000;
     tb_inputB = 32'd3;
     aluOP = CU_SRA;
-    check_ALU_out(-32'd1248);
+    #10;
+    check_ALU_out(-32'd50);
 
     tb_test_num += 1; //test case 3
     $display("SRA %d", tb_test_num);
-    tb_inputA = -32'd1000;
+    tb_inputA = 32'd1000;
     tb_inputB = 32'd3;
-    aluOP = CU_SRL;
-    check_ALU_out(-32'd125);
+    aluOP = CU_SRA;
+    #10;
+    check_ALU_out(32'd125);
 
     //ADD/ADDI
     ////////////////////////////////////
@@ -116,6 +121,7 @@ module tb_alu ();
     tb_inputA = 32'd40;
     tb_inputB = 32'd90;
     aluOP = CU_ADD;
+    #10;
     check_ALU_out(32'd130);
     check_neg(0);
 
@@ -125,6 +131,7 @@ module tb_alu ();
     tb_inputA = -32'd8;
     tb_inputB = -32'd10;
     aluOP = CU_ADD;
+    #10;
     check_ALU_out(-32'd18);
     check_neg(1);
 
@@ -134,6 +141,7 @@ module tb_alu ();
     tb_inputA = 32'd10;
     tb_inputB = -32'd8;
     aluOP = CU_ADD;
+    #10;
     check_ALU_out(32'd2);
     check_neg(0);
 
@@ -143,6 +151,7 @@ module tb_alu ();
     tb_inputA = -32'd20;
     tb_inputB = 32'd4;
     aluOP = CU_ADD;
+    #10;
     check_ALU_out(-32'd16);
     check_neg(1);
 
@@ -152,6 +161,7 @@ module tb_alu ();
     tb_inputA = 32'd10;
     tb_inputB = 32'd10;
     aluOP = CU_SUB;
+    #10;
     check_zero(1);
 
     /////////////////////////////////
@@ -164,6 +174,7 @@ module tb_alu ();
     tb_inputA = -32'd10;
     tb_inputB = -32'd5;
     aluOP = CU_SUB;
+    #10;
     check_ALU_out(-32'd5);
     check_neg(1);
 
@@ -173,6 +184,7 @@ module tb_alu ();
     tb_inputA = 32'd15;
     tb_inputB = 32'd5;
     aluOP = CU_SUB;
+    #10;
     check_ALU_out(32'd10);
 
     //pos - neg
@@ -181,6 +193,7 @@ module tb_alu ();
     tb_inputA = 32'd20;
     tb_inputB = -32'd5;
     aluOP = CU_SUB;
+    #10;
     check_ALU_out(32'd25);
 
     //neg - pos
@@ -189,6 +202,7 @@ module tb_alu ();
     tb_inputA = -32'd20;
     tb_inputB = 32'd10;
     aluOP = CU_SUB;
+    #10;
     check_ALU_out(-32'd30);
 
     //check zero
@@ -197,6 +211,7 @@ module tb_alu ();
     tb_inputA = 32'd10;
     tb_inputB = 32'd10;
     aluOP = CU_SUB;
+    #10;
     check_zero(1);
 
     ////////////////////////////////////////////////////////////
@@ -207,6 +222,7 @@ module tb_alu ();
     tb_inputA = 32'b0010;
     tb_inputB = 32'b1101;
     aluOP = CU_OR;
+    #10;
     check_ALU_out(32'b1111);
 
     //XOR/XORI
@@ -215,6 +231,7 @@ module tb_alu ();
     tb_inputA = 32'b100011;
     tb_inputB = 32'b101010;
     aluOP = CU_XOR;
+    #10;
     check_ALU_out(32'b001001);
 
     //AND/ANDI
@@ -222,7 +239,8 @@ module tb_alu ();
     $display("AND %d", tb_test_num);
     tb_inputA = 32'b100110;
     tb_inputB = 32'b111100;
-    aluOP = CU_XOR;
+    aluOP = CU_AND;
+    #10;
     check_ALU_out(32'b100100);
 
     //SLT/SLTI
@@ -231,7 +249,8 @@ module tb_alu ();
     tb_inputA = -32'd15;
     tb_inputB = 32'd10;
     aluOP = CU_SLT;
-    check_ALU_out(32'd1);
+    #10;
+    check_ALU_out(32'b1);
 
     //SLTU
     tb_test_num += 1; //test case 18
@@ -239,6 +258,7 @@ module tb_alu ();
     tb_inputA = 32'd8;
     tb_inputB = 32'd10;
     aluOP = CU_SLTU;
+    #10;
     check_ALU_out(32'd1);
 
     //SRL
@@ -247,6 +267,7 @@ module tb_alu ();
     tb_inputA = 32'd1000;
     tb_inputB = 32'd2;
     aluOP = CU_SRL;
+    #10;
     check_ALU_out(32'd250);
 $finish;
 end
