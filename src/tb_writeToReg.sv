@@ -107,7 +107,7 @@ initial begin
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LBU;
 			#2;
-			checkOut({24'b0, 1010_1010});
+			checkOut({24'b0, 4'b1010, 4'b1010});
 			#5;
 	// ************************************************************************
   // Test Case 5: Test LHU case
@@ -119,7 +119,7 @@ initial begin
 			tb_pc = 32'hbbbbbbbb;
 			tb_cuOP = CU_LHU;
 			#2;
-			checkOut({16'b0, 1011, 1011, 1011, 1011});
+			checkOut({16'b0, 4'b1011, 4'b1011, 4'b1011, 4'b1011});
 			#5;
 	// ************************************************************************
   // Test Case 6: Test AUIPC case
