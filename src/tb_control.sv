@@ -33,7 +33,7 @@ control DUT (.cuOP(tb_cuOP), .instruction(tb_instructions),
     initial begin
     $dumpfile("dump.vcd");
     $dumpvars;
-
+    
     
         tb_instructions = 32'hAAAAA537; //Lui
          #(PERIOD)

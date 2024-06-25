@@ -16,7 +16,41 @@ module top (
   output logic txclk, rxclk,
   input  logic txready, rxready
 );
-logic [31:0] out;
-pc testpc(.clk(hz100), .nRST(~pb[19]), .ALUneg(1), .Zero(1), .iready(1), .PCaddr(out), .cuOP(6'b0), .rs1Read(32'b0), .signExtend(32'b0));
+logic [31:0] instruction, muxOut, aluIn, aluOut, immOut, pc, memload, writeData;
+logic [5:0] cuOP;
+logic [4:0] reg_1, reg_2, w_reg;
+logic [3:0] aluOP;
+logic [19:0] imm;
+
+logic clk, nrst, zero, negative, regWrite, aluSrc, i_ready, d_ready;
+
+mux aluMux(.in1(reg_2), .in2(immOut), .en(aluSrc), .out(aluIn));
+
+alu arith(.aluOP(aluOP), .in1(reg_1), .in2(aluIn), .aluOut(aluOut), .zero(zero), .negative(negative));
+
+request ru(.clk(clk), .nRST(nrst), .imemload(), .imemaddr(), .dmmaddr(), .dmmstore(), .ramaddr(), .ramload(), .ramstore(), .cuOP(), .Ren(), .Wen());
+
+register_file DUT(.clk(clk), .nRST(nrst), .reg_write(tb_WEN), .read_index1(tb_index1), .read_index2(tb_index2), 
+.read_data1(read_data1), .read_data2(read_data2), .write_index(write_index), .write_data(write_data));
+
+control controller (.cuOP(tb_cuOP), .instruction(tb_instructions), 
+.reg_1(tb_reg_1), .reg_2(tb_reg_2), .rd(tb_rd),
+.imm(tb_imm), .aluOP(tb_aluOP), .regWrite(tb_regWrite), .memWrite(tb_memWrite), .memRead(tb_memRead), .aluSrc(tb_aluSrc));
+
+pc testpc(.clk(clk), .nRST(nrst), .ALUneg(negative), .Zero(zero), .iready(i_ready), .PCaddr(pc), .cuOP(cuOP), .rs1Read(reg_1), .signExtend(immOut));
+
+writetoReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .immOut(immOut), .pc(pc), .writeData(writeData));
 endmodule
 
+
+module mux(
+	input logic in1, in2, en,
+	output logic out);
+
+	always_comb begin
+		if(en) 
+			out = in1;
+		else
+			out = in2;
+	end
+endmodule

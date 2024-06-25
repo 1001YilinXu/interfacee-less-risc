@@ -9,7 +9,7 @@ typedef enum logic [5:0] {
 	} cuOPType;	
 
 module writeToReg (
-    input logic [31:0] memload, pc, linkReg, aluOut, imm,
+    input logic [31:0] memload, pc, aluOut, imm,
     input logic negative,
     input logic [5:0] cuOP,
     output logic [31:0] writeData
@@ -23,10 +23,10 @@ always_comb begin
         CU_LW: writeData = memload;
         CU_LBU: writeData = {24'b0, memload[7:0]};
         CU_LHU: writeData = {16'b0, memload[15:0]};
-        CU_AUIPC: writeData = pc + {imm[19:0], 12'b0};
+        CU_AUIPC: writeData = pc + {imm[31:12], 12'b0};
         CU_LUI: writeData = {imm[31:12], 12'b0};
-        CU_JAL: writeData = linkReg + 4;
-        CU_JALR: writeData = linkReg + 4;
+        CU_JAL: writeData = pc + 4;
+        CU_JALR: writeData = pc + 4;
         default: writeData = aluOut;
     endcase
 end
