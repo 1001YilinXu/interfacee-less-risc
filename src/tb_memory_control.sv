@@ -35,8 +35,8 @@ module tb_memory_control();
         tb_dmmstore = 0;
         tb_ramload = 0;
 
-        #(CLK_PERIOD)
-        #(CLK_PERIOD)
+         @(negedge tb_clk);
+         @(posedge tb_clk);
 
         tb_dmmaddr = 32'hABCD1234;
         tb_dmmstore = 32'h9876DCBA;
@@ -44,13 +44,26 @@ module tb_memory_control();
         tb_imemaddr = 32'h11119999;
         tb_busy_o = 1;
         tb_nRST = 1;
-        tb_dmmRen = 1; 
+        tb_imemRen = 1; 
 
-        #(CLK_PERIOD)
-        #(CLK_PERIOD)
+         @(negedge tb_clk);
+         @(posedge tb_clk);
+
+        tb_dmmRen = 1;
         
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+
+        tb_dmmRen = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+
+        tb_dmmWen = 1;
 
         
-
+        
+     #1;
+     $finish;
     end
 endmodule
