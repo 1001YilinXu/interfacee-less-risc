@@ -11,13 +11,13 @@ export LD_LIBRARY_PATH := /home/shay/a/ece270/lib:$(LD_LIBRARY_PATH)
 # (do not include the source folder in the name)
 TOP_FILE		:= 
 
-# Specify the name of componenSt or sub-module files
+# Specify the name of component or sub-module files
 # (do not include the source folder in the name)
-COMPONENT_FILES	:= writeToReg.sv
+COMPONENT_FILES	:= alu.sv
 
 # Specify the top level testbench to be simulated
 # (do not include the source folder in the name)
-TB 				:= tb_writeToReg.sv
+TB 				:= tb_alu.sv
 
 # Directories where source code is located
 SRC 			:= src
