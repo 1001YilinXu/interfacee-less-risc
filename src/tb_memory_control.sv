@@ -1,4 +1,4 @@
-`include "src/memory_control.sv"
+
 `timescale 1ms / 100us
 
 module tb_memory_control();
@@ -17,6 +17,40 @@ module tb_memory_control();
     end
 
     memory_control DUT (.CLK(tb_clk), .nRST(tb_nRST), 
-                        .dmmRen(tb_dmmRen), .dmmWen(tb_dmmWen), .)
+                        .dmmRen(tb_dmmRen), .dmmWen(tb_dmmWen), .imemRen(tb_imemRen), .busy_o(tb_busy_o),
+                        .i_ready(tb_i_ready), .d_ready(tb_d_ready), .Ren(tb_Ren), .Wen(tb_Wen),
+                        .imemaddr(tb_imemaddr), .dmmaddr(tb_dmmaddr), .dmmstore(tb_dmmstore), .ramload(tb_ramload),
+                        .ramaddr(tb_ramaddr), .ramstore(tb_ramstore), .imemload(tb_imemload), .dmmload(tb_dmmload));
 
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars;
+        tb_nRST = 0;
+        tb_dmmRen = 0;
+        tb_dmmWen = 0;
+        tb_imemRen = 1;
+        tb_busy_o = 0;
+        tb_imemaddr = 0;
+        tb_dmmaddr = 0;
+        tb_dmmstore = 0;
+        tb_ramload = 0;
+
+        #(CLK_PERIOD)
+        #(CLK_PERIOD)
+
+        tb_dmmaddr = 32'hABCD1234;
+        tb_dmmstore = 32'h9876DCBA;
+        tb_ramload = 32'h99991111;
+        tb_imemaddr = 32'h11119999;
+        tb_busy_o = 1;
+        tb_nRST = 1;
+        tb_dmmRen = 1; 
+
+        #(CLK_PERIOD)
+        #(CLK_PERIOD)
+        
+
+        
+
+    end
 endmodule

@@ -10,10 +10,24 @@
 `timescale 1 ms/ 100us
 
 module tb_control();
-control DUT (.cuOp(tb_cuOP), )
+logic [31:0] tb_instructions;
+logic [4:0] tb_reg_1, tb_reg_2, tb_rd;
+logic [19:0] tb_imm;
+logic [3:0] tb_aluOP;
+cuOPType tb_cuOP;
+logic tb_regWrite, tb_memWrite, tb_memRead, tb_aluSrc;
+
+parameter PERIOD = 10;
+controller DUT (.cuOP(tb_cuOP), .instruction(tb_instructions), 
+.reg_1(tb_reg_1), .reg_2(tb_reg_2), .rd(tb_rd),
+.imm(tb_imm), .aluOP(tb_aluOP), .regWrite(tb_regWrite), .memWrite(tb_memWrite), .memRead(tb_memRead), .aluSrc(tb_aluSrc));
  
-    parameter PERIOD = 10;
+    
     initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars;
+
+    
         tb_instructions = 32'hAAAAA537; //Lui
          #(PERIOD)
         tb_instructions = 32'hAAAAA517; // AUIPC 
