@@ -54,7 +54,6 @@
 		AND = 3'b111
 	} rfunc_t;
 
-
 module controller(
 	input logic [31:0] instruction,
 	output logic [4:0] reg_1, reg_2, rd,
