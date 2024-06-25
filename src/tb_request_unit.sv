@@ -1,6 +1,13 @@
 `include "src/request_unit.sv"
 `timescale 1ms / 100us
-
+typedef enum logic [5:0] {
+		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
+		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
+		CU_LB, CU_LH, CU_LW, CU_LBU, CU_LHU, CU_SB, CU_SH, CU_SW, 
+		CU_ADDI, CU_SLTI, CU_SLTIU, CU_SLIU, CU_XORI, CU_ORI, CU_ANDI, CU_SLLI, CU_SRLI, CU_SRAI, 
+		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
+		CU_ERROR
+	} cuOPType;	
 module tb_request_unit();
     localparam CLK_PERIOD = 10;
 
@@ -48,25 +55,29 @@ module tb_request_unit();
     tb_dmmstorei = 32'hABCDABCD;
     tb_dmmaddri = 32'h00010001;
     tb_imemaddri = 32'h12341234;
-    #(CLK_PERIOD)
-    #(CLK_PERIOD)
+
+     @(negedge tb_clk);
+     @(posedge tb_clk);
 
     // test d_ready changes dmmRen and dmmWen to 0;
     tb_i_ready = 0;
     tb_d_ready = 1; 
     tb_cuOP = CU_LH;
-    #(CLK_PERIOD)
-    #(CLK_PERIOD) 
+    
+    @(negedge tb_clk);
+    @(posedge tb_clk);
 
     // test  i_ready and store word instruction
     tb_i_ready = 1;
     tb_d_ready = 0;
 
-    #(CLK_PERIOD)
-    tb_cuOp = CU_SW;
+    @(negedge tb_clk);
+    @(posedge tb_clk);
 
-    #(CLK_PERIOD)
-    #(CLK_PERIOD)
+    tb_cuOP = CU_SW;
+
+    @(negedge tb_clk);
+    @(posedge tb_clk);
 
     tb_dmmstorei = 32'hDACBDACB;
     tb_dmmaddri = 32'h01010101;
@@ -74,7 +85,8 @@ module tb_request_unit();
 
     tb_i_ready = 0;
     tb_d_ready = 1;
-
-
+    
+    #1
+    $finish;
     end
 endmodule

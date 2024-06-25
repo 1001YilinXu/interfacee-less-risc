@@ -28,6 +28,11 @@ always_comb begin
     dmmload = 0;
     i_wait = 0; 
     d_wait = 0;
+
+    if(i_wait) begin
+        imemload = prev_imemload;
+    end
+
     if(dmmRen) begin
         ramaddr = prev_dmmaddr;
         Ren = dmmRen;
@@ -54,5 +59,7 @@ end
 assign i_ready = imemRen & ~i_wait; 
 assign d_ready = (dmmRen | dmmWen) & ~d_wait;
 
-
+always_comb begin
+  
+end
 endmodule
