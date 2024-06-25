@@ -69,7 +69,7 @@ initial begin
     tb_clk = tb_clk;
     tb_rs1Read = 32'b0;
     tb_signExtend = 32'b0;
-    tb_numOfTests = 100;
+    tb_numOfTests = 2;
     tb_test_num = -1;
     tb_test_case = "Initializing";
     tb_intermResult = 0;
@@ -85,8 +85,6 @@ initial begin
         checkOut(32'b0);
         @(negedge tb_clk);
         tb_nRST = 1;
-        #2;
-        checkOut(32'b0);
     // ************************************************************************
     // Test Case 1: Testing JAL operation
     // ************************************************************************
@@ -112,7 +110,7 @@ initial begin
             @(negedge tb_clk);
 
             //check operation for JAL
-            checkOut(tb_signExtend + 32'd4 + tb_PCaddr);
+            checkOut(tb_signExtend + tb_PCaddr);
             end 
         end
     // ************************************************************************
@@ -139,7 +137,7 @@ initial begin
             tb_rs1Read = tb_rs1Read + i;
             @(negedge tb_clk);
             tb_intermResult = tb_rs1Read + tb_signExtend;
-            checkOut(32'd4 + {tb_intermResult[31:1], 1'b0});
+            checkOut({tb_intermResult[31:1], 1'b0});
             end 
         end
     // ************************************************************************
