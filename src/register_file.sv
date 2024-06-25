@@ -19,7 +19,7 @@ always_ff@(posedge clk, negedge nRST) begin
     end
 end
 always_comb begin
-   nxt_register [0] = 32'b0;
+    nxt_register [0] = 32'b0;
     if(reg_write & (write_data != 32'b0)) begin
     nxt_register [write_index]= write_data;
     end
