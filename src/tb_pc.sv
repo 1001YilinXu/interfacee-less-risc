@@ -159,7 +159,7 @@ initial begin
         tb_iready = 1;
         //loop through test cases
         @(negedge tb_clk);
-        checkOut(tb_PCaddr + 32'd4);
+        checkOut(tb_PCaddr + tb_signExtend);
     // ************************************************************************
     // Test Case 4: Testing BNE with failed zero condition
     // ************************************************************************
@@ -179,7 +179,7 @@ initial begin
         tb_iready = 1;
         //loop through test cases
         @(negedge tb_clk);
-        checkOut(32'd4 + tb_PCaddr);
+        checkOut(tb_PCaddr);
     // ************************************************************************
     // Test Case 5: Testing BLT with failed zero condition
     // ************************************************************************
@@ -199,7 +199,7 @@ initial begin
         tb_iready = 1;
         //loop through test cases
         @(negedge tb_clk);
-        checkOut(32'd4 + tb_PCaddr);
+        checkOut(tb_PCaddr);
     // ************************************************************************
     // Test Case 6: Testing BGE with failed zero condition
     // ************************************************************************
@@ -219,7 +219,7 @@ initial begin
         tb_iready = 1;
         //loop through test cases
         @(negedge tb_clk);
-        checkOut(32'd4 + tb_PCaddr);
+        checkOut(tb_PCaddr);
     // ************************************************************************
     // Test Case 7: Testing BGEU with failed zero condition
     // ************************************************************************
