@@ -1,4 +1,4 @@
-`include "src/request_unit.sv"
+
 `timescale 1ms / 100us
 typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
@@ -85,7 +85,7 @@ module tb_request_unit();
 
     tb_i_ready = 0;
     tb_d_ready = 1;
-    
+
     #1
     $finish;
     end
