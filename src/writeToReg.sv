@@ -23,7 +23,7 @@ always_comb begin
         CU_LW: writeData = memload;
         CU_LBU: writeData = {24'b0, memload[7:0]};
         CU_LHU: writeData = {16'b0, memload[15:0]};
-        CU_AUIPC: writeData = pc + {imm[19:0], 12'b0};
+        CU_AUIPC: writeData = pc + {imm[31:12], 12'b0};
         CU_LUI: writeData = {imm[31:12], 12'b0};
         CU_JAL: writeData = pc + 4;
         CU_JALR: writeData = pc + 4;

@@ -1,6 +1,6 @@
 Chronologic VCS simulator copyright 1991-2023
 Contains Synopsys proprietary information.
-Compiler version V-2023.12-SP1-1_Full64; Runtime version V-2023.12-SP1-1_Full64;  Jun 25 19:16 2024
+Compiler version V-2023.12-SP1-1_Full64; Runtime version V-2023.12-SP1-1_Full64;  Jun 25 19:24 2024
 VCD+ Writer V-2023.12-SP1-1_Full64 Copyright (c) 1991-2023 by Synopsys Inc.
 The file '/home/nanohub/eeshtref/STARS2024/interfacee-less-risc/inter.vpd' was opened successfully.
 
@@ -21,18 +21,18 @@ Correct value to write 10101011101010111010101110101011.
 
 
 Test Case 4: Testing LBU
-Error: "src/tb_writeToReg.sv", 46: writeToReg_tb.checkOut: at time 36000 us
-Incorrect value to write. Expected: 100110100010000100010010. Actual: 10101010.
+Info: "src/tb_writeToReg.sv", 44: writeToReg_tb.checkOut: at time 36000 us
+Correct value to write 10101010.
 
 
 Test Case 5: Testing LHU
-Error: "src/tb_writeToReg.sv", 46: writeToReg_tb.checkOut: at time 46000 us
-Incorrect value to write. Expected: 1111110011. Actual: 1011101110111011.
+Info: "src/tb_writeToReg.sv", 44: writeToReg_tb.checkOut: at time 46000 us
+Correct value to write 1011101110111011.
 
 
 Test Case 6: Testing AUIPC
-Error: "src/tb_writeToReg.sv", 46: writeToReg_tb.checkOut: at time 56000 us
-Incorrect value to write. Expected: 10111011101110111011101110111011. Actual: 10111011101111000101101110111011.
+Info: "src/tb_writeToReg.sv", 44: writeToReg_tb.checkOut: at time 56000 us
+Correct value to write 10111011101110111011101110111011.
 
 
 Test Case 7: Testing LUI
@@ -60,3 +60,9 @@ Correct value to write 0.
 $finish called from file "src/tb_writeToReg.sv", line 202.
 $finish at simulation time                 1230
 Simulation complete, time is 123000 us.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 123000 us
+CPU Time:      0.210 seconds;       Data structure size:   0.0Mb
+Tue Jun 25 19:25:11 2024
+  Data structure size:   0.0Mb
+Tue Jun 25 19:24:57 2024
