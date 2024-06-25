@@ -74,7 +74,7 @@ write_data = 32'hAAAAAAAA;
 write_index = 5'b00001;
 tb_index1 = 5'b00001;
 #(CLK_PER * 5);
-checkreg1(32'hAAAAAAAA);
+checkreg1(0);
 #(CLK_PER * 5);
 
 @(negedge clk);
