@@ -1,0 +1,5 @@
+{"vcs1":{"timestamp_begin":1719326242.490713794, "rt":1.75, "ut":0.10, "st":0.13}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1719326242.180815156}
+{"VCS_COMP_START_TIME": 1719326242.180815156}
+{"VCS_COMP_END_TIME": 1719326244.288366598}
+{"VCS_USER_OPTIONS": "-sverilog -lca -debug_access+all -Mdir=sim_build/csrc -o sim_build/simv src/tb_pc.sv src/pc.sv"}
