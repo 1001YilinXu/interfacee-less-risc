@@ -62,7 +62,10 @@ module control(
 		AND = 3'b111
 	} rfunc_t;
 
+
+
 always_comb begin
+
 	reg_1 = 0;
 	reg_2 = 0;
 	rd = 0;
@@ -113,6 +116,7 @@ always_comb begin
 		endcase
 	end
 	(LOAD): begin
+	$display("hello load");
 		reg_1 = instruction[19:15];
 		rd = instruction[11:7];
 		imm = {8'b0, instruction[31:25], instruction[11:7]};
@@ -151,6 +155,7 @@ always_comb begin
 		aluSrc = 1;
 		casez(instruction[14:12])
 		ADDI: begin
+		$display("hello addi");
 			aluOP = ALU_ADD;
 			cuOP = CU_ADDI;
 		end
@@ -167,10 +172,12 @@ always_comb begin
 			cuOP = CU_XORI;
 		end 
 		ORI: begin
+		$display("hello ori");
 			aluOP = ALU_OR;
 			cuOP = CU_ORI;
 		end 
 		ANDI: begin
+		$display("hello andi");
 			aluOP = ALU_AND;
 			cuOP = CU_ANDI;
 		end 
@@ -191,6 +198,7 @@ always_comb begin
 		endcase
 	end
 	(RTYPE): begin
+	$display("hello R");
 		reg_1 = instruction[19:15];
 		reg_2 = instruction[24:20];
 		regWrite = 1;
