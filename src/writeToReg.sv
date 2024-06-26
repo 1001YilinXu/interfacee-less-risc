@@ -1,4 +1,10 @@
 
+module writeToReg (
+    input logic [31:0] memload, pc, aluOut, imm,
+    input logic negative,
+    input logic [5:0] cuOP,
+    output logic [31:0] writeData
+);
 typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
 		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
@@ -7,14 +13,6 @@ typedef enum logic [5:0] {
 		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
 		CU_ERROR
 	} cuOPType;	
-
-module writeToReg (
-    input logic [31:0] memload, pc, aluOut, imm,
-    input logic negative,
-    input logic [5:0] cuOP,
-    output logic [31:0] writeData
-);
-
 
 always_comb begin
     case(cuOP)
