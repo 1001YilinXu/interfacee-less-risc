@@ -17,20 +17,13 @@ module top (
   // input  logic txready, rxready
 	input logic clk, nrst,
 	input logic [31:0]instruction,
-	output logic zero, negative,  
+	output logic zero, negative, regWrite, aluSrc, i_ready, d_ready, memWrite, memRead,
+	output logic [3:0] aluOP,
+	output logic [4:0] regsel1, regsel2, w_reg,
 	output logic [5:0] cuOP,
-	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData
+	output logic [19:0] imm,
+	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2
 );
-logic [31:0] regData1, regData2;
-logic [4:0] regsel1, regsel2, w_reg;
-logic [3:0] aluOP;
-logic [19:0] imm;
-
-logic regWrite, aluSrc, i_ready, d_ready, memWrite, memRead;
-
-// assign nrst = pb[19];
-// assign clk = hz100;
-// assign left[4:0] = reg_1;
 
 mux aluMux(.in1(regData2), .in2(immOut), .en(aluSrc), .out(aluIn));
 
