@@ -36,17 +36,17 @@ typedef enum logic [5:0] {
                     PC <= next_pc;
 
            always_comb begin
-            inter_next_pc = rs1Read + signExtend;
+            // inter_next_pc = rs1Read + signExtend;
             if (iready)
                 case(cuOP)
-                    CU_JALR: next_pc = {inter_next_pc[31:1], 1'b0};
-                    CU_JAL: next_pc = PC + signExtend;
-                    CU_BEQ: next_pc = (Zero? PC + signExtend: PC + 4);
-                    CU_BNE: next_pc = (~Zero? PC + signExtend : PC + 4);
-                    CU_BLT: next_pc = (ALUneg? PC + signExtend : PC + 4);
-                    CU_BGE: next_pc = (~ALUneg | Zero? PC + signExtend : PC + 4);
-                    CU_BLTU: next_pc = (ALUneg? PC + signExtend : PC + 4);
-                    CU_BGEU: next_pc = (~ALUneg | Zero? PC + signExtend : PC + 4);
+                    CU_JALR: next_pc = rs1Read + signExtend;
+                    CU_JAL: next_pc = PC + (signExtend << 1);
+                    CU_BEQ: next_pc = (Zero? PC + (signExtend << 1): PC + 4);
+                    CU_BNE: next_pc = (~Zero? PC + (signExtend << 1) : PC + 4);
+                    CU_BLT: next_pc = (ALUneg? PC + (signExtend << 1): PC + 4);
+                    CU_BGE: next_pc = (~ALUneg | Zero? PC + (signExtend << 1) : PC + 4);
+                    CU_BLTU: next_pc = (ALUneg? PC + (signExtend << 1): PC + 4);
+                    CU_BGEU: next_pc = (~ALUneg | Zero? PC + (signExtend << 1) : PC + 4);
                     default: next_pc = PC + 4;
                 endcase
                 else

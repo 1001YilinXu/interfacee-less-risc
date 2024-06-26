@@ -1,3 +1,12 @@
+
+module request_unit
+(
+    input logic CLK, nRST, i_ready, d_ready, 
+    input logic  [5:0] cuOP, 
+    input logic [31:0] dmmstorei, dmmaddri, imemaddri, imemloadi, dmmloadi,
+    output logic dmmWen, dmmRen, imemRen, 
+    output logic [31:0] dmmstoreo, dmmaddro, imemaddro, imemloado, dmmloado
+);
 typedef enum logic [5:0] {
 		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
 		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
@@ -6,14 +15,6 @@ typedef enum logic [5:0] {
 		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
 		CU_ERROR
 	} cuOPType;	
-module request_unit
-(
-    input logic CLK, nRST, i_ready, d_ready, 
-    input cuOPType cuOP, 
-    input logic [31:0] dmmstorei, dmmaddri, imemaddri, imemloadi, dmmloadi,
-    output logic dmmWen, dmmRen, imemRen, 
-    output logic [31:0] dmmstoreo, dmmaddro, imemaddro, imemloado, dmmloado
-);
 logic nxt_dmmRen, nxt_dmmWen;
 assign imemRen = 1;
 always_ff@(posedge CLK, negedge !nRST) begin
