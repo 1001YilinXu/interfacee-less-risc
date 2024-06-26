@@ -2,12 +2,12 @@
 
 module tb_top;
 
-logic [31:0] tb_instruction, tb_muxOut, tb_aluIn, tb_aluOut, tb_immOut, tb_pc, tb_memload, tb_writeData, tb_regData1, tb_regData2;
+logic [31:0] tb_instruction, tb_aluIn, tb_aluOut, tb_immOut, tb_pc, tb_memload, tb_writeData, tb_regData1, tb_regData2;
 logic [5:0] tb_cuOP;
 logic [4:0] tb_regsel1, tb_regsel2, tb_w_reg;
 logic [3:0] tb_aluOP;
 logic [19:0] tb_imm;
-logic clk, nrst, tb_zero, tb_negative;
+logic clk, nrst, tb_zero, tb_negative, tb_aluSrc;
 
 parameter CLK_PER = 10;
 //always #(CLK_PER/2) clk ++;
@@ -20,7 +20,7 @@ end
 
 
 top DUT(.clk(clk), .nrst(nrst), .instruction(tb_instruction), .memload(tb_memload), .aluIn(tb_aluIn), .aluOut(tb_aluOut), .immOut(tb_immOut), 
-.pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP));
+.pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP), .regsel1(tb_regsel1), .regsel2(tb_regsel2), .w_reg(tb_w_reg), .imm(tb_imm), .regData1(tb_regData1), .regData2(tb_regData2), .aluOP(tb_aluOP), .aluSrc(tb_aluSrc));
 
 task reset_dut;
   @(negedge clk);
@@ -64,7 +64,7 @@ tb_instruction = 32'h45707213;
 @(negedge clk);
 tb_instruction = 32'h3f31f213;
 
-#1;
+#(CLK_PER *2);
 $finish;
 end
 
