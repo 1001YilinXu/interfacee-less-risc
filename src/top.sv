@@ -4,35 +4,39 @@
 
 module top (
   // I/O ports
-  input  logic hz100, reset,
-  input  logic [20:0] pb,
-  output logic [7:0] left, right,
-         ss7, ss6, ss5, ss4, ss3, ss2, ss1, ss0,
-  output logic red, green, blue,
+  // input  logic hz100, reset,
+  // input  logic [20:0] pb,
+  // output logic [7:0] left, right,
+  //        ss7, ss6, ss5, ss4, ss3, ss2, ss1, ss0,
+  // output logic red, green, blue,
 
-  // UART ports
-  output logic [7:0] txdata,
-  input  logic [7:0] rxdata,
-  output logic txclk, rxclk,
-  input  logic txready, rxready
+  // // UART ports
+  // output logic [7:0] txdata,
+  // input  logic [7:0] rxdata,
+  // output logic txclk, rxclk,
+  // input  logic txready, rxready
+	input logic clk, nrst,
+	input logic [31:0]instruction, memload,
+	output logic zero, negative,  
+	output logic [5:0] cuOP,
+	output logic [31:0] muxOut, aluIn, aluOut, immOut, pc, writeData
 );
-logic [31:0] instruction, muxOut, aluIn, aluOut, immOut, pc, memload, writeData, regData1, regData2;
-logic [5:0] cuOP;
+logic [31:0] regData1, regData2;
 logic [4:0] regsel1, regsel2, w_reg;
 logic [3:0] aluOP;
 logic [19:0] imm;
 
-logic clk, nrst, zero, negative, regWrite, aluSrc, i_ready, d_ready;
+logic regWrite, aluSrc, i_ready, d_ready;
 
-assign nrst = pb[19];
-assign clk = hz100;
-assign left[4:0] = reg
+// assign nrst = pb[19];
+// assign clk = hz100;
+// assign left[4:0] = reg_1;
 
 mux aluMux(.in1(reg_2), .in2(immOut), .en(aluSrc), .out(aluIn));
 
 alu arith(.aluOP(aluOP), .in1(reg_1), .in2(aluIn), .aluOut(aluOut), .zero(zero), .negative(negative));
 
-request ru(.clk(clk), .nRST(nrst), .imemload(), .imemaddr(), .dmmaddr(), .dmmstore(), .ramaddr(), .ramload(), .ramstore(), .cuOP(), .Ren(), .Wen());
+//request ru(.clk(clk), .nRST(nrst), .imemload(), .imemaddr(), .dmmaddr(), .dmmstore(), .ramaddr(), .ramload(), .ramstore(), .cuOP(), .Ren(), .Wen());
 
 register_file DUT(.clk(clk), .nRST(nrst), .reg_write(tb_WEN), .read_index1(tb_index1), .read_index2(tb_index2), 
 .read_data1(read_data1), .read_data2(read_data2), .write_index(write_index), .write_data(write_data));
