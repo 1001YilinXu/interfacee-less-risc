@@ -10,9 +10,16 @@ logic [19:0] tb_imm;
 logic clk, nrst, tb_zero, tb_negative;
 
 parameter CLK_PER = 10;
-always #(CLK_PER/2) clk ++;
+//always #(CLK_PER/2) clk ++;
+always begin 
+clk = 1'b0;
+#(CLK_PER / 2.0);
+clk = 1'b1;
+#(CLK_PER / 2.0);
+end
 
-top DUT(.clk(clk), .nrst(nrst), .instruction(tb_instruction), .memload(tb_memload), .muxOut(tb_memload), .aluIn(tb_aluIn), .aluOut(tb_aluOut), .immOut(tb_immOut), 
+
+top DUT(.clk(clk), .nrst(nrst), .instruction(tb_instruction), .memload(tb_memload), .aluIn(tb_aluIn), .aluOut(tb_aluOut), .immOut(tb_immOut), 
 .pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP));
 
 task reset_dut;
@@ -29,6 +36,9 @@ $dumpfile("dump.vcd");
 $dumpvars; 
 
 reset_dut;
+
+@(negedge clk);
+
 
 //ADDI x1, x0, 1000
 @(negedge clk);
@@ -53,6 +63,9 @@ tb_instruction = 32'h45707213;
 #(CLK_PER *1);
 @(negedge clk);
 tb_instruction = 32'h3f31f213;
+
+#1;
+$finish;
 end
 
 endmodule
