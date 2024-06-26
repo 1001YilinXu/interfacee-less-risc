@@ -13,11 +13,11 @@ TOP_FILE		:=
 
 # Specify the name of component or sub-module files
 # (do not include the source folder in the name)
-COMPONENT_FILES	:= alu.sv
+COMPONENT_FILES	:= pc.sv
 
 # Specify the top level testbench to be simulated
 # (do not include the source folder in the name)
-TB 				:= tb_alu.sv
+TB 				:= tb_pc.sv
 
 # Directories where source code is located
 SRC 			:= src

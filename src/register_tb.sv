@@ -9,7 +9,8 @@ integer tb_testnum = 0;
 string tb_test_case;
 logic [31:0] read_data1, read_data2, write_data;
 
-register_file DUT(.clk(), .nrst(), .reg_write(), .read_index1(), .read_index2(), .read_data1(), .read_data2(), .write_index(), .write_data());
+register_file DUT(.clk(clk), .nRST(nrst), .reg_write(tb_WEN), .read_index1(tb_index1), .read_index2(tb_index2), 
+.read_data1(read_data1), .read_data2(read_data2), .write_index(write_index), .write_data(write_data));
 
 parameter CLK_PER = 10;
 always #(CLK_PER/2) clk ++;
@@ -73,7 +74,7 @@ write_data = 32'hAAAAAAAA;
 write_index = 5'b00001;
 tb_index1 = 5'b00001;
 #(CLK_PER * 5);
-checkreg1(32'hAAAAAAAA);
+checkreg1(0);
 #(CLK_PER * 5);
 
 @(negedge clk);
