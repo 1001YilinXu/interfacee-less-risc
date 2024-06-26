@@ -50,26 +50,85 @@ module tb_request();
 
         @(negedge tb_clk);
         @(posedge tb_clk);
+
+        tb_busy_o = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+        tb_busy_o = 1;
+
         tb_dmmaddr = 32'h56785678;
         tb_ramload = 32'h43214321;
 
         @(negedge tb_clk);
         @(posedge tb_clk);
 
+        tb_busy_o = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+        tb_busy_o = 1;
+
         tb_imemaddr = 32'h11111111;
         tb_ramload = 32'h22222222;
         
         tb_cuOP = CU_SW;
+        
         @(negedge tb_clk);
         @(posedge tb_clk);
+
+          tb_busy_o = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+        tb_busy_o = 1;
 
         tb_dmmstore = 32'h33333333;
         tb_dmmaddr = 32'habcdabcd;
 
         @(negedge tb_clk);
         @(posedge tb_clk);
+
+          tb_busy_o = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+        tb_busy_o = 1;
         tb_imemaddr = 32'h12121212;
         tb_ramload = 32'h23232323;
+        tb_cuOP = CU_LB;
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+
+          tb_busy_o = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+        tb_busy_o = 1;
+
+
+        tb_dmmaddr = 32'h34343434;
+        tb_ramload = 32'h44444444;
+
+         @(negedge tb_clk);
+        @(posedge tb_clk);
+
+
+          tb_busy_o = 0;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+        tb_busy_o = 1;
+
+        
+        tb_imemaddr = 32'h55555555;
+        tb_ramload = 32'h13131313;
+
+        tb_cuOP = CU_SB;
+
+        @(negedge tb_clk);
+        @(posedge tb_clk);
+
 
         
         #1;
