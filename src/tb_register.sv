@@ -1,6 +1,6 @@
 `timescale 10ns / 1ns
 
-module register_tb;
+module tb_register;
 
 logic clk = 0, nrst;
 logic tb_check_output, tb_WEN;

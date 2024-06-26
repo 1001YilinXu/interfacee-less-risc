@@ -1,6 +1,7 @@
 module mux(
-	input logic in1, in2, en,
-	output logic out);
+	input logic [31:0] in1, in2, 
+	input logic en,
+	output logic [31:0] out);
 
 	always_comb begin
 		if(en) 

@@ -34,7 +34,25 @@ control DUT (.cuOP(tb_cuOP), .instruction(tb_instructions),
     $dumpfile("dump.vcd");
     $dumpvars;
     
-    
+tb_instructions = 32'h3e800093;
+
+//addi x2, x0, -2000
+#(PERIOD);
+tb_instructions = 32'h83000113;
+
+//ori x3 , x0,  1001
+#(PERIOD );
+tb_instructions = 32'h3e906193;
+
+//andi x4 , x0,  1111
+#(PERIOD );
+tb_instructions = 32'h45707213;
+
+//andi x4, x3, 1011
+#(PERIOD);
+tb_instructions = 32'h3f31f213;
+
+    /*
         tb_instructions = 32'hAAAAA537; //Lui
          #(PERIOD)
         tb_instructions = 32'hAAAAA517; // AUIPC 
@@ -107,7 +125,7 @@ control DUT (.cuOP(tb_cuOP), .instruction(tb_instructions),
         #(PERIOD)
         tb_instructions = 32'h00C56C33; //OR
         #(PERIOD)
-        tb_instructions = 32'h00C57C33; // AND
+        tb_instructions = 32'h00C57C33; // AND */
 
     end
 endmodule
