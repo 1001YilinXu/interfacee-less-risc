@@ -25,7 +25,7 @@ module top (
 	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2
 );
 
-mux aluMux(.in1(regData2), .in2(immOut), .en(aluSrc), .out(aluIn));
+mux aluMux(.in1(immOut), .in2(regData2), .en(aluSrc), .out(aluIn));
 
 alu arith(.aluOP(cuOP), .inputA(regData1), .inputB(aluIn), .ALUResult(aluOut), .zero(zero), .negative(negative));
 
