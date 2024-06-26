@@ -2,11 +2,11 @@ module memory_control
 (
     input logic CLK, nRST, dmmRen, dmmWen, imemRen, busy_o,
     input logic [31:0] imemaddr, dmmaddr, dmmstore, ramload,
-    output logic i_ready, d_ready, Ren, Wen, 
+    output logic i_ready, d_ready, Ren, Wen, i_wait, d_wait,
     output logic [31:0] ramaddr, ramstore, imemload, dmmload
 );
 logic [31:0] prev_dmmaddr, prev_dmmstore, prev_imemload;
-logic d_wait, i_wait;
+//logic d_wait, i_wait;
 always_ff@(posedge CLK, negedge nRST) begin
     if(!nRST) begin
         prev_dmmaddr <= 32'b0;
@@ -59,7 +59,4 @@ end
 assign i_ready = imemRen & ~i_wait; 
 assign d_ready = (dmmRen | dmmWen) & ~d_wait;
 
-always_comb begin
-  
-end
 endmodule
