@@ -16,7 +16,6 @@ module top (
   // output logic txclk, rxclk,
   // input  logic txready, rxready
 	input logic clk, nrst,
-	input logic [31:0]instruction,
 	output logic zero, negative,  
 	output logic [5:0] cuOP,
 	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData
@@ -25,6 +24,7 @@ logic [31:0] regData1, regData2;
 logic [4:0] regsel1, regsel2, w_reg;
 logic [3:0] aluOP;
 logic [19:0] imm;
+logic [31:0]instruction;
 
 logic regWrite, aluSrc, i_ready, d_ready, memWrite, memRead;
 
@@ -50,12 +50,6 @@ pc testpc(.clk(clk), .nRST(nrst), .ALUneg(negative), .Zero(zero), .iready(i_read
 writeToReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .imm(immOut), .pc(pc), .writeData(writeData), .negative(negative));
 
 signExtender signex(.imm(imm), .immOut(immOut), .CUOp(cuOP));
-// ssdec ss1();
-// ssdec ss2();
-// ssdec ss3();
-// ssdec ss4();
-// ssdec ss5();
-// ssdec ss6();
-// ssdec ss7();
-// ssdec ss8();
+
+ram_wrapper r1(.clk(clk), .nRst(nrst), .cuOP(cuOP), .address_DM(aluOut), .address_IM(pc), .data_in(regData2), .data_out(memload), .instr_out(instruction), .pc_enable(i_ready));
 endmodule
