@@ -64,7 +64,7 @@ tb_instruction = 32'h45707213;
 @(negedge clk);
 tb_instruction = 32'h3f31f213;
 
-#1;
+#(CLK_PER *2);
 $finish;
 end
 
