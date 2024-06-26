@@ -7,6 +7,7 @@ module memory_control
 );
 logic [31:0] prev_dmmaddr, prev_dmmstore, prev_imemload;
 //logic d_wait, i_wait;
+
 always_ff@(posedge CLK, negedge nRST) begin
     if(!nRST) begin
         prev_dmmaddr <= 32'b0;
@@ -26,8 +27,8 @@ always_comb begin
     ramstore = 0;
     imemload = 0; 
     dmmload = 0;
-    i_wait = 0; 
-    d_wait = 0;
+    i_wait = 1;
+    d_wait = 1;
 
     if(i_wait) begin
         imemload = prev_imemload;
