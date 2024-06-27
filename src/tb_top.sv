@@ -314,9 +314,10 @@ tb_instruction = 32'h3f31f213;
     @(negedge clk);
     tb_instruction = 32'hc1803393;
   //slli
+  //slli x8, x3, 5
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h00511413;
+    tb_instruction = 32'h00519413;
   //srli
     #(CLK_PER *1);
     @(negedge clk);
