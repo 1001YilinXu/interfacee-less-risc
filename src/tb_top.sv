@@ -269,10 +269,10 @@ tb_instruction = 32'h3f31f213;
     //jal x0, loop
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h7d00006f;
+    tb_instruction = 32'h7d000093;
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h3e808313; 
+    tb_instruction = 32'hffdff0ef; 
 
   //working
   //jalr 
@@ -287,6 +287,33 @@ tb_instruction = 32'h3f31f213;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'h007d00b7;
+
+//I type instrucitons
+  reset_dut;
+  //addi
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0aa00193;
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0ff00213;
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'hf0100293;
+
+  //xori
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h3f204293;
+  //slti
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'hc1802313;
+  //sltiu
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'hc1803393;
+
 
 #(CLK_PER *2);
 $finish;
