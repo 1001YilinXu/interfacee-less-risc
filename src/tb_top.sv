@@ -313,7 +313,66 @@ tb_instruction = 32'h3f31f213;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'hc1803393;
+  //slli
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00511413;
+  //srli
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0051d493;
+  //srai
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h40515493;
+  //srai
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h40515493;
 
+//testing R type
+  reset_dut;
+  //addi
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0aa00193;
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0ff00213;
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'hf0100293;
+
+  //add
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h40515493;
+  //sub 
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h002085b3;
+  //xor
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00324633;
+  //or
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h003266b3;
+  //and
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00327733;
+  //slt
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0041a7b3;
+  //sltu
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0051b833;
+
+    
 
 #(CLK_PER *2);
 $finish;
