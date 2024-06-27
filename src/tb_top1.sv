@@ -22,7 +22,7 @@ end
 
 top1 DUT(.clk(clk), .nrst(nrst),  .memload(tb_memload), .aluIn(tb_aluIn), .aluOut(tb_aluOut), .immOut(tb_immOut), 
 .pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP), .regsel1(tb_regsel1), .regsel2(tb_regsel2), .w_reg(tb_w_reg), .imm(tb_imm), .regData1(tb_regData1), .regData2(tb_regData2), .aluOP(tb_aluOP), .aluSrc(tb_aluSrc),
-.regWrite(tb_regWrite), .i_ready(tb_i_ready), .d_ready(tb_d_ready), .memWrite(tb_memWrite), .memRead(tb_memRead));
+.regWrite(tb_regWrite), .d_ready(tb_d_ready), .memWrite(tb_memWrite), .memRead(tb_memRead));
 
 task reset_dut;
   @(negedge clk);
