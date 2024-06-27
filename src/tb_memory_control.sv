@@ -5,7 +5,7 @@ module tb_memory_control();
     localparam CLK_PERIOD = 10;
 
     logic tb_clk, tb_nRST, tb_dmmRen, tb_dmmWen, tb_imemRen, tb_busy_o;
-    logic tb_i_ready, tb_d_ready, tb_Ren, tb_Wen;
+    logic tb_i_ready, tb_d_ready, tb_Ren, tb_Wen, tb_i_wait, tb_d_wait;
     logic [31:0] tb_imemaddr, tb_dmmaddr, tb_dmmstore, tb_ramload;
     logic [31:0] tb_ramaddr, tb_ramstore, tb_imemload, tb_dmmload;
 
@@ -16,7 +16,7 @@ module tb_memory_control();
         #(CLK_PERIOD / 2.0); 
     end
 
-    memory_control DUT (.CLK(tb_clk), .nRST(tb_nRST), 
+    memory_control DUT (.CLK(tb_clk), .nRST(tb_nRST), .i_wait(tb_i_wait), .d_wait(tb_d_wait),
                         .dmmRen(tb_dmmRen), .dmmWen(tb_dmmWen), .imemRen(tb_imemRen), .busy_o(tb_busy_o),
                         .i_ready(tb_i_ready), .d_ready(tb_d_ready), .Ren(tb_Ren), .Wen(tb_Wen),
                         .imemaddr(tb_imemaddr), .dmmaddr(tb_dmmaddr), .dmmstore(tb_dmmstore), .ramload(tb_ramload),

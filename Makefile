@@ -8,37 +8,25 @@
 export PATH            := /home/shay/a/ece270/bin:$(PATH)
 export LD_LIBRARY_PATH := /home/shay/a/ece270/lib:$(LD_LIBRARY_PATH)
 
-##############################################################################
-# VARIABLES
-##############################################################################
-
-# Source
-
-# Specify the name of the top level file (do not include the source folder in the name)
-# NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
-
-TOP_FILE         := system.sv
-
-# List internal component/block files here (separate the filenames with spaces)
-# NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
-COMPONENT_FILES  := alu.sv caches.sv control_unit.sv datapath.sv memory_control.sv pc.sv ram.sv register_file.sv request_unit.sv singlecycle.sv system_if.vh cpu_ram_if.vh alu_if.vh cache_control_if.vh caches_if.vh control_unit_if.vh cpu_types_pkg.vh datapath_cache_if.vh pc_if.vh register_file_if.vh request_unit_if.vh system_if.vh
-
-# Specify the filepath of the test bench you want to use (ie. tb_top_level.sv)
+# Specify the name of the top level file
 # (do not include the source folder in the name)
-TB               :=  
+TOP_FILE		:= top.sv
 
-# Get the top level design and test_bench module names
-TB_MODULE		 := $(notdir $(basename $(TB)))
-TOP_MODULE	     := $(notdir $(basename $(TOP_FILE)))
+# Specify the name of componenSt or sub-module files
+# (do not include the source folder in the name)
+COMPONENT_FILES	:= pc.sv alu.sv register_file.sv mux.sv writeToReg.sv control.sv signExtender.sv
 
-# Simulation
-WF               ?= 0
+# Specify the top level testbench to be simulated
+# (do not include the source folder in the name)
+TB 				:= tb_top.sv
 
-# Directries where the source and mapped code is located
-SRC              := source
-MAP              := mapped
+# Directories where source code is located
+SRC 			:= src
 
-# Location of executables
+# Simulation target
+SIM_SOURCE		:= sim_source
+
+# Location of executables and files created during source compilation
 BUILD            := sim_build
 
 # Simulation Targets

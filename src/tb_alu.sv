@@ -86,8 +86,6 @@ module tb_alu ();
     #10;
     check_ALU_out(32'd2048);
 
-    
-
     tb_test_num += 1; //test case signed 1
     $display("SLL %d", tb_test_num);
     tb_inputA = -32'd256;

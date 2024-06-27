@@ -4,47 +4,45 @@
 
 module top (
   // I/O ports
-  input  logic hz100, reset,
-  input  logic [20:0] pb,
-  output logic [7:0] left, right,
-         ss7, ss6, ss5, ss4, ss3, ss2, ss1, ss0,
-  output logic red, green, blue,
+  // input  logic hz100, reset,
+  // input  logic [20:0] pb,
+  // output logic [7:0] left, right,
+  //        ss7, ss6, ss5, ss4, ss3, ss2, ss1, ss0,
+  // output logic red, green, blue,
 
-  // UART ports
-  output logic [7:0] txdata,
-  input  logic [7:0] rxdata,
-  output logic txclk, rxclk,
-  input  logic txready, rxready
+  // // UART ports
+  // output logic [7:0] txdata,
+  // input  logic [7:0] rxdata,
+  // output logic txclk, rxclk,
+  // input  logic txready, rxready
+	input logic clk, nrst,
+	input logic [31:0]instruction,
+	output logic zero, negative, regWrite, aluSrc, i_ready, d_ready, memWrite, memRead,
+	output logic [3:0] aluOP,
+	output logic [4:0] regsel1, regsel2, w_reg,
+	output logic [5:0] cuOP,
+	output logic [19:0] imm,
+	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2
 );
-logic [31:0] instruction, muxOut, aluIn, aluOut, immOut, pc, memload, writeData, regData1, regData2;
-logic [5:0] cuOP;
-logic [4:0] regsel1, regsel2, w_reg;
-logic [3:0] aluOP;
-logic [19:0] imm;
 
-logic clk, nrst, zero, negative, regWrite, aluSrc, i_ready, d_ready;
+mux aluMux(.in1(immOut), .in2(regData2), .en(aluSrc), .out(aluIn));
 
-assign nrst = pb[19];
-assign clk = hz100;
-assign left[4:0] = reg
+alu arith(.aluOP(cuOP), .inputA(regData1), .inputB(aluIn), .ALUResult(aluOut), .zero(zero), .negative(negative));
 
-mux aluMux(.in1(reg_2), .in2(immOut), .en(aluSrc), .out(aluIn));
+//request ru(.clk(clk), .nRST(nrst), .imemload(), .imemaddr(), .dmmaddr(), .dmmstore(), .ramaddr(), .ramload(), .ramstore(), .cuOP(), .Ren(), .Wen());
 
-alu arith(.aluOP(aluOP), .in1(reg_1), .in2(aluIn), .aluOut(aluOut), .zero(zero), .negative(negative));
+register_file DUT(.clk(clk), .nRST(nrst), .reg_write(regWrite), .read_index1(regsel1), .read_index2(regsel2), 
+.read_data1(regData1), .read_data2(regData2), .write_index(w_reg), .write_data(writeData));
 
-request ru(.clk(clk), .nRST(nrst), .imemload(), .imemaddr(), .dmmaddr(), .dmmstore(), .ramaddr(), .ramload(), .ramstore(), .cuOP(), .Ren(), .Wen());
+control controller (.cuOP(cuOP), .instruction(instruction), 
+.reg_1(regsel1), .reg_2(regsel2), .rd(w_reg),
+.imm(imm), .aluOP(aluOP), .regWrite(regWrite), .memWrite(memWrite), .memRead(memRead), .aluSrc(aluSrc));
 
-register_file DUT(.clk(clk), .nRST(nrst), .reg_write(tb_WEN), .read_index1(tb_index1), .read_index2(tb_index2), 
-.read_data1(read_data1), .read_data2(read_data2), .write_index(write_index), .write_data(write_data));
+pc testpc(.clk(clk), .nRST(nrst), .ALUneg(negative), .Zero(zero), .iready(i_ready), .PCaddr(pc), .cuOP(cuOP), .rs1Read(regData1), .signExtend(immOut));
 
-control controller (.cuOP(tb_cuOP), .instruction(tb_instructions), 
-.reg_1(tb_reg_1), .reg_2(tb_reg_2), .rd(tb_rd),
-.imm(tb_imm), .aluOP(tb_aluOP), .regWrite(tb_regWrite), .memWrite(tb_memWrite), .memRead(tb_memRead), .aluSrc(tb_aluSrc));
+writeToReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .imm(immOut), .pc(pc), .writeData(writeData), .negative(negative));
 
-pc testpc(.clk(clk), .nRST(nrst), .ALUneg(negative), .Zero(zero), .iready(i_ready), .PCaddr(pc), .cuOP(cuOP), .rs1Read(reg_1), .signExtend(immOut));
-
-writetoReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .immOut(immOut), .pc(pc), .writeData(writeData));
-
+signExtender signex(.imm(imm), .immOut(immOut), .CUOp(cuOP));
 // ssdec ss1();
 // ssdec ss2();
 // ssdec ss3();
