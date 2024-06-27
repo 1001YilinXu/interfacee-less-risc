@@ -77,171 +77,207 @@ tb_instruction = 32'h45707213;
 tb_instruction = 32'h3f31f213;
 
 //Branch Instructions
-reset_dut;
+    reset_dut;
 
-//addi x1 , x0,   1000
-#(CLK_PER *1);
-@(negedge clk);
-tb_instruction = 32'h3e800093;
-
-//addi x2 , x0,   2000
-#(CLK_PER *1);
-@(negedge clk);
-tb_instruction = 32'h7d000113;
-
-//addi x3 , x0,  -1000
-#(CLK_PER *1);
-@(negedge clk);
-tb_instruction = 32'hc1800193;
-
-//addi x4, x0,  1000
-#(CLK_PER *1);
-@(negedge clk);
-tb_instruction = 32'h3e800213;
-
-//addi x5, x0, 	-500
-#(CLK_PER *1);
-@(negedge clk);
-tb_instruction = 32'he0c00293;
-
-//bne branch
-  //bne x2, x1, loop
-  //beq x2, x1, 1000 
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h00111263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313; 
-
-//bne not branch
-  //bne x1, x1, loop
-  //beq x2, x1, 1000 
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h0010963;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313; 
-
-//bge branch
-  //equal
-  //bge x1, x1, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h0010d263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-  //greater than
-  //bge x2, x1, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h00115263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-
-//bge no branch
-  //bge x1, x2, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h0020d263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-
-//bgeu branch equal 
-  //bgeu x1, x1, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h0010f263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313; 
-
-//bgeu branch equal, opposite signs
-  //bgeu x1, x3, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h0030f263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313; 
-
-//beq no branch
-  //beq x1, x3, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h00308263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-
-//beq branch
-  //beq x1, x1, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h00108263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-
-//blt branch
-  //blt x3, x1, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h0011c263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-
-//blt no branch
-  //blt x2, x1, loop
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h00114263;
-  #(CLK_PER *1);
-  @(negedge clk);
-  tb_instruction = 32'h3e808313;
-
-//bltu Branch
-  //different sign
-  //bltu x1, x3, loop  
+    //addi x1 , x0,   1000
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h0030e263;
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h3e808313;
-  //same sign
-  //bltu x1, x2, loop  
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h0020e263;
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h3e808313;
+    tb_instruction = 32'h3e800093;
 
-//bltu no branch
-  //different signs
-  //bltu x3, x1, loop  
+    //addi x2 , x0,   2000
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h0011e263;
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h3e808313;
-  //same signs
-  //bltu x2, x1, loop  
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h00116263;
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h3e808313;
+    tb_instruction = 32'h7d000113;
 
+    //addi x3 , x0,  -1000
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'hc1800193;
 
+    //addi x4, x0,  1000
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h3e800213;
+
+    //addi x5, x0, 	-500
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'he0c00293;
+
+    //bne branch
+      //bne x2, x1, loop
+      //beq x2, x1, 1000 
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h00111263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313; 
+
+    //bne not branch
+      //bne x1, x1, loop
+      //beq x2, x1, 1000 
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h0010963;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313; 
+
+    //bge branch
+      //equal
+      //bge x1, x1, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h0010d263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+      //greater than
+      //bge x2, x1, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h00115263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+
+    //bge no branch
+      //bge x1, x2, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h0020d263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+
+    //beq no branch
+      //beq x1, x3, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h00308263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+
+    //beq branch
+      //beq x1, x1, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h00108263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+
+    //blt branch
+      //blt x3, x1, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h0011c263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+
+    //blt no branch
+      //blt x2, x1, loop
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h00114263;
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808313;
+
+    //CUTT
+    // //bltu Branch 
+    //   //different sign **
+    //   //bltu x1, x3, loop  
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h0030e263;
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h3e808313;
+    //   //same sign
+    //   //bltu x1, x2, loop  
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h0020e263;
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h3e808313;
+
+    // //bltu no branch
+    //   //different signs **
+    //   //bltu x3, x1, loop  
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h0011e263;
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h3e808313;
+    //   //same signs
+    //   //bltu x2, x1, loop  
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h00116263;
+    //     #(CLK_PER *1);
+    //     @(negedge clk);
+    //     tb_instruction = 32'h3e808313;
+
+    // //bgeu branch equal 
+    //   //bgeu x1, x1, loop
+    //   #(CLK_PER *1);
+    //   @(negedge clk);
+    //   tb_instruction = 32'h0010f263;
+    //   #(CLK_PER *1);
+    //   @(negedge clk);
+    //   tb_instruction = 32'h3e808313; 
+
+    // //bgeu branch equal, opposite signs
+    //   //bgeu x1, x3, loop
+    //   #(CLK_PER *1);
+    //   @(negedge clk);
+    //   tb_instruction = 32'h0030f263;
+    //   #(CLK_PER *1);
+    //   @(negedge clk);
+    //   tb_instruction = 32'h3e808313; 
+
+//Jump Instructions
+  reset_dut;
+    //addi x1 , x0,   1000
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h3e800093;
+
+    //addi x2 , x0,   2000
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h7d000113;
+
+    //addi x3 , x0,  -1000
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'hc1800193;
+
+    //addi x5, x0, 	-500
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'he0c00293;
+
+  //jal 
+    //jal x4, loop
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h0040026f;
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h3e808313; 
+
+  //jalr 
+      //jalr x8, x1, 1000
+      #(CLK_PER *1);
+      @(negedge clk);
+      tb_instruction = 32'h3e808467;
 
 #(CLK_PER *2);
 $finish;
