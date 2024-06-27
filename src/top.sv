@@ -38,11 +38,11 @@ control controller (.cuOP(cuOP), .instruction(instruction),
 .reg_1(regsel1), .reg_2(regsel2), .rd(w_reg),
 .imm(imm), .aluOP(aluOP), .regWrite(regWrite), .memWrite(memWrite), .memRead(memRead), .aluSrc(aluSrc));
 
-pc testpc(.clk(clk), .nRST(nrst), .ALUneg(negative), .Zero(zero), .iready(i_ready), .PCaddr(pc), .cuOP(cuOP), .rs1Read(regData1), .signExtend(immOut));
+//pc testpc(.clk(clk), .nRST(nrst), .ALUneg(negative), .Zero(zero), .iready(i_ready), .PCaddr(pc), .cuOP(cuOP), .rs1Read(regData1), .signExtend(immOut));
 
-writeToReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .imm(immOut), .pc(pc), .writeData(writeData), .negative(negative));
+//writeToReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .imm(immOut), .pc(pc), .writeData(writeData), .negative(negative));
 
-signExtender signex(.imm(imm), .immOut(immOut), .CUOp(cuOP));
+//signExtender signex(.imm(imm), .immOut(immOut), .CUOp(cuOP));
 // ssdec ss1();
 // ssdec ss2();
 // ssdec ss3();
