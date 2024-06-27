@@ -54,7 +54,7 @@ module tb_request();
         tb_busy_o = 0;
 
         @(negedge tb_clk);
-        @(posedge tb_clk);
+        @(posedge tb_clk);i_wait, d_wait,
         tb_busy_o = 1;
 
         tb_dmmaddr = 32'h56785678;
