@@ -21,7 +21,7 @@ module top1 (
 	output logic [4:0] regsel1, regsel2, w_reg,
 	output logic [5:0] cuOP,
 	output logic [19:0] imm,
-	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2
+	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2, instruction_out
 );
 logic [31:0] instruction;
 
@@ -45,4 +45,5 @@ writeToReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .imm(immOut), 
 signExtender signex(.imm(imm), .immOut(immOut), .CUOp(cuOP));
 
 ram_wrapper r1(.clk(clk), .nRst(nrst), .cuOP(cuOP), .address_DM(aluOut), .address_IM(pc), .data_in(regData2), .data_out(memload), .instr_out(instruction), .pc_enable(i_ready));
+assign instruction_out = instruction;
 endmodule
