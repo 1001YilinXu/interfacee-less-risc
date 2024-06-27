@@ -1,6 +1,16 @@
-`timescale 10ns / 1ns
+`timescale 1ms / 10ns
 
 module tb_top;
+
+typedef enum logic [5:0] {
+		CU_LUI, CU_AUIPC, CU_JAL, CU_JALR, 
+		CU_BEQ, CU_BNE, CU_BLT, CU_BGE, CU_BLTU, CU_BGEU, 
+		CU_LB, CU_LH, CU_LW, CU_LBU, CU_LHU, CU_SB, CU_SH, CU_SW, 
+		CU_ADDI, CU_SLTI, CU_SLTIU, CU_SLIU, CU_XORI, CU_ORI, CU_ANDI, CU_SLLI, CU_SRLI, CU_SRAI, 
+		CU_ADD, CU_SUB, CU_SLL, CU_SLT, CU_SLTU, CU_XOR, CU_SRL, CU_SRA, CU_OR, CU_AND,
+		CU_ERROR
+	} cuOPType;
+
 
 logic [31:0] tb_instruction, tb_aluIn, tb_aluOut, tb_immOut, tb_pc, tb_memload, tb_writeData, tb_regData1, tb_regData2;
 logic [5:0] tb_cuOP;
@@ -18,7 +28,6 @@ clk = 1'b1;
 #(CLK_PER / 2.0);
 end
 
-
 top DUT(.clk(clk), .nrst(nrst), .instruction(tb_instruction), .memload(tb_memload), .aluIn(tb_aluIn), .aluOut(tb_aluOut), .immOut(tb_immOut), 
 .pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP), .regsel1(tb_regsel1), .regsel2(tb_regsel2), .w_reg(tb_w_reg), .imm(tb_imm), .regData1(tb_regData1), .regData2(tb_regData2), .aluOP(tb_aluOP), .aluSrc(tb_aluSrc));
 
@@ -35,11 +44,14 @@ initial begin
 $dumpfile("dump.vcd");
 $dumpvars; 
 
+nrst = 1'b1;
+tb_instruction = 32'b0;
+
 reset_dut;
 
 @(negedge clk);
 
-
+//I type instructions 
 //ADDI x1, x0, 1000
 @(negedge clk);
 tb_instruction = 32'h3e800093;
@@ -63,6 +75,52 @@ tb_instruction = 32'h45707213;
 #(CLK_PER *1);
 @(negedge clk);
 tb_instruction = 32'h3f31f213;
+
+//Branch Instructions
+reset_dut;
+
+//addi x1 , x0,   1000
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h3e800093;
+
+//addi x2 , x0,   2000
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h7d000113;
+
+//addi x3 , x0,  -1000
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'hc1800193;
+
+//addi x4, x0,  1000
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h3e800213;
+
+//addi x5, x0, 	-500
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'he0c00293;
+
+//no branch, PC + 4 
+//beq x2, x1, 1000 
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h00111463;
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h3e40006f; 
+
+//Branch, PC + imm
+//bne x3, x2, 2000
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h00218463;
+#(CLK_PER *1);
+@(negedge clk);
+tb_instruction = 32'h7cc0006f; 
 
 #(CLK_PER *2);
 $finish;
