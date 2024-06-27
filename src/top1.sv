@@ -16,7 +16,7 @@ module top1 (
   // output logic txclk, rxclk,
   // input  logic txready, rxready
 	input logic clk, nrst,
-	output logic zero, negative, regWrite, aluSrc, i_ready, d_ready, memWrite, memRead,
+	output logic zero, negative, regWrite, aluSrc, d_ready, memWrite, memRead,
 	output logic [3:0] aluOP,
 	output logic [4:0] regsel1, regsel2, w_reg,
 	output logic [5:0] cuOP,
@@ -24,6 +24,8 @@ module top1 (
 	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2
 );
 logic [31:0] instruction;
+logic i_ready;
+assign i_ready = 1;
 mux aluMux(.in1(immOut), .in2(regData2), .en(aluSrc), .out(aluIn));
 
 alu arith(.aluOP(aluOP), .inputA(regData1), .inputB(aluIn), .ALUResult(aluOut), .zero(zero), .negative(negative));
