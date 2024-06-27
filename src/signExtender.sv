@@ -18,7 +18,7 @@ output logic[31:0] immOut
 always_comb begin
 //JAL operation
 if (CUOp == CU_JAL)
-    immOut = {{12{imm[19]}}, imm[19], imm[9:0], imm[10], imm[18:11]};
+    immOut = {12'b0, imm[19], imm[9:0], imm[10], imm[18:11]};
 //All branch operations
 else if (CUOp == CU_BEQ || CUOp == CU_BNE || CUOp == CU_BLT || CUOp == CU_BGE || CUOp == CU_BLTU || CUOp == CU_BGEU)
     immOut = {{20{imm[11]}}, imm[11], imm[9:4], imm[3:0], imm[10]};
