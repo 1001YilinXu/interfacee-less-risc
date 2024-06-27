@@ -263,21 +263,30 @@ tb_instruction = 32'h3f31f213;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'he0c00293;
-
+    
+  //not working
   //jal 
-    //jal x4, loop
+    //jal x0, loop
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h0040026f;
+    tb_instruction = 32'h7d00006f;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'h3e808313; 
 
+  //working
   //jalr 
-      //jalr x8, x1, 1000
+      //jalr x8, x0, 1000
       #(CLK_PER *1);
       @(negedge clk);
-      tb_instruction = 32'h3e808467;
+      tb_instruction = 32'h3e810467;
+
+  //working
+  //lui
+    //lui x1, 2000
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h007d00b7;
 
 #(CLK_PER *2);
 $finish;
