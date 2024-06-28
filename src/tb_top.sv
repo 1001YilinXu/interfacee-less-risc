@@ -287,6 +287,9 @@ tb_instruction = 32'h3f31f213;
     @(negedge clk);
     tb_instruction = 32'h007d00b7;
 
+  //AUIPC
+    
+
 //I type instrucitons
   reset_dut;
   //addi
@@ -338,6 +341,10 @@ tb_instruction = 32'h3f31f213;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'hf0100293;
+  //addi
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00300093;
 
   //add
     #(CLK_PER *1);
@@ -394,7 +401,7 @@ tb_instruction = 32'h3f31f213;
  //sra
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h4051d33;
+    tb_instruction = 32'h4011d933;
 
 #(CLK_PER *2);
 $finish;

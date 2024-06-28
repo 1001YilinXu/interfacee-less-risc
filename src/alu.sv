@@ -42,7 +42,7 @@ always_comb begin
             zero = 0;
     end
     ALU_SRL: begin
-        ALUResult = inputA >> inputB;
+        ALUResult = inputA >> inputB[4:0];
             if (ALUResult == 0)
             zero = 1;
         else
