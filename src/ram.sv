@@ -12,7 +12,7 @@ typedef enum logic {IDLE, WAIT} StateType;
 StateType state, next_state;
 
 initial begin
-$readmemh("fill.txt", memory);
+$readmemh("fill.mem", memory);
 end
 
 always_ff @(posedge clk, negedge nRst) begin
