@@ -18,6 +18,7 @@ logic [4:0] tb_regsel1, tb_regsel2, tb_w_reg;
 logic [3:0] tb_aluOP;
 logic [19:0] tb_imm;
 logic clk, nrst, tb_zero, tb_negative, tb_aluSrc;
+logic tb_memWrite, tb_memRead;
 
 parameter CLK_PER = 10;
 //always #(CLK_PER/2) clk ++;
@@ -29,7 +30,8 @@ clk = 1'b1;
 end
 
 top DUT(.clk(clk), .nrst(nrst), .instruction(tb_instruction), .memload(tb_memload), .aluIn(tb_aluIn), .aluOut(tb_aluOut), .immOut(tb_immOut), 
-.pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP), .regsel1(tb_regsel1), .regsel2(tb_regsel2), .w_reg(tb_w_reg), .imm(tb_imm), .regData1(tb_regData1), .regData2(tb_regData2), .aluOP(tb_aluOP), .aluSrc(tb_aluSrc));
+.pc(tb_pc), .writeData(tb_writeData), .zero(tb_zero), .negative(tb_negative), .cuOP(tb_cuOP), .regsel1(tb_regsel1), .regsel2(tb_regsel2), .w_reg(tb_w_reg),
+ .imm(tb_imm), .regData1(tb_regData1), .regData2(tb_regData2), .aluOP(tb_aluOP), .aluSrc(tb_aluSrc), .memWrite(tb_memWrite), .memRead(tb_memRead));
 
 task reset_dut;
   @(negedge clk);
@@ -322,11 +324,7 @@ tb_instruction = 32'h3f31f213;
   //srai
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h40515493;
-  //srai
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'h40515493;
+    tb_instruction = 32'h4051d493;
 
 //testing R type
   reset_dut;
@@ -344,11 +342,11 @@ tb_instruction = 32'h3f31f213;
   //add
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h40515493;
+    tb_instruction = 32'h00300533;
   //sub 
     #(CLK_PER *1);
     @(negedge clk);
-    tb_instruction = 32'h002085b3;
+    tb_instruction = 32'h403005b3;
   //xor
     #(CLK_PER *1);
     @(negedge clk);
@@ -370,7 +368,33 @@ tb_instruction = 32'h3f31f213;
     @(negedge clk);
     tb_instruction = 32'h0051b833;
 
+  //sll
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h005198b3;
+
+  //srl
+  //srl x18, x4, x3
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00325933;
     
+  //srl
+  //srl x18, x4, x5
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00525933;
+
+  //srl
+  //srl x18, x4, x4
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00425933;
+
+ //sra
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h4051d33;
 
 #(CLK_PER *2);
 $finish;
