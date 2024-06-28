@@ -16,13 +16,13 @@ module top (
   // output logic txclk, rxclk,
   // input  logic txready, rxready
 	input logic clk, nrst,
-	input logic [31:0]instruction,
+	input logic [31:0]instruction, memload,
 	output logic zero, negative, regWrite, aluSrc, i_ready, d_ready, memWrite, memRead,
 	output logic [3:0] aluOP,
 	output logic [4:0] regsel1, regsel2, w_reg,
 	output logic [5:0] cuOP,
 	output logic [19:0] imm,
-	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2
+	output logic [31:0] aluIn, aluOut, immOut, pc, writeData, regData1, regData2
 );
 
 mux aluMux(.in1(immOut), .in2(regData2), .en(aluSrc), .out(aluIn));

@@ -16,8 +16,8 @@ typedef enum logic [5:0] {
 
 always_comb begin
     case(cuOP)
-        CU_LB: writeData = {{24{memload[7]}}, memload[7:0]};
-        CU_LH: writeData = {{16{memload[7]}}, memload[15:0]};
+        CU_LB: writeData = {{24{0}}, memload[7:0]};
+        CU_LH: writeData = {{16{0}}, memload[15:0]};
         CU_LW: writeData = memload;
         CU_LBU: writeData = {24'b0, memload[7:0]};
         CU_LHU: writeData = {16'b0, memload[15:0]};
@@ -28,10 +28,5 @@ always_comb begin
         default: writeData = aluOut;
     endcase
 end
-
-
-
-
-
 
 endmodule

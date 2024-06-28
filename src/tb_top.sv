@@ -288,7 +288,7 @@ tb_instruction = 32'h3f31f213;
     tb_instruction = 32'h007d00b7;
 
   //AUIPC
-    
+
 
 //I type instrucitons
   reset_dut;
@@ -410,6 +410,7 @@ tb_instruction = 32'h3f31f213;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'h06400093;
+    tb_memload = 32'd1000;
 
     //lw
     //lw x1, 0(x2)
@@ -417,6 +418,17 @@ tb_instruction = 32'h3f31f213;
     @(negedge clk);
     tb_instruction = 32'h00012083;
 
+    //LB
+    //lb x1, 0(x2)
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00010083;
+
+    //Lh
+    //lh x1, 0(x2)
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00011083;
 
 
 
