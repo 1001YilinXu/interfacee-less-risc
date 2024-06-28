@@ -23,13 +23,23 @@ $dumpvars;
 
 tb_read_enable = 1;
     @(negedge clk);
+
 @(posedge clk);
+tb_address_IM = 0;
+tb_address_DM = 0;
 @(negedge clk);
 @(posedge clk);
+tb_address_IM = 1;
+tb_address_DM = 1;
 @(negedge clk);
 @(posedge clk);
+tb_address_IM = 2;
+tb_address_DM = 2;
+
 @(negedge clk);
 @(posedge clk);
+tb_address_IM = 3;
+tb_address_DM = 3;
 @(negedge clk);
 @(posedge clk);
 @(negedge clk);
