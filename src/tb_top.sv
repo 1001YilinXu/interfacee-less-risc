@@ -403,6 +403,24 @@ tb_instruction = 32'h3f31f213;
     @(negedge clk);
     tb_instruction = 32'h4011d933;
 
+//testing load and store type
+  reset_dut;
+    //addi
+    //addi x1, x0, 100
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h06400093;
+
+    //lw
+    //lw x1, 0(x2)
+    #(CLK_PER *1);
+    @(negedge clk);
+    tb_instruction = 32'h00012083;
+
+
+
+
+
 #(CLK_PER *2);
 $finish;
 end
