@@ -270,16 +270,13 @@ tb_instruction = 32'h3f31f213;
     #(CLK_PER *1);
     @(negedge clk);
     tb_instruction = 32'h7d000093;
-    #(CLK_PER *1);
-    @(negedge clk);
-    tb_instruction = 32'hffdff0ef; 
 
   //working
   //jalr 
       //jalr x8, x0, 1000
       #(CLK_PER *1);
       @(negedge clk);
-      tb_instruction = 32'h3e810467;
+      tb_instruction = 32'h7d0000ef;
 
   //working
   //lui
