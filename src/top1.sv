@@ -24,7 +24,6 @@ module top1 (
 	output logic [31:0] memload, aluIn, aluOut, immOut, pc, writeData, regData1, regData2, instruction_out
 );
 logic [31:0] instruction;
-
 mux aluMux(.in1(immOut), .in2(regData2), .en(aluSrc), .out(aluIn));
 
 alu arith(.aluOP(aluOP), .inputA(regData1), .inputB(aluIn), .ALUResult(aluOut), .zero(zero), .negative(negative));
@@ -44,6 +43,6 @@ writeToReg write(.cuOP(cuOP), .memload(memload), .aluOut(aluOut), .imm(immOut), 
 
 signExtender signex(.imm(imm), .immOut(immOut), .CUOp(cuOP));
 
-ram_wrapper r1(.clk(clk), .nRst(nrst), .cuOP(cuOP), .address_DM(aluOut), .address_IM(pc), .data_in(regData2), .data_out(memload), .instr_out(instruction), .pc_enable(i_ready));
+ram r1(.clk(clk), .nRst(nrst), .write_enable(memWrite), .read_enable(memRead), .address_DM(aluOut[11:0]), .address_IM(pc[11:0]), .data_in(regData2), .data_out(memload), .instr_out(instruction), .pc_enable(i_ready));
 assign instruction_out = instruction;
 endmodule
