@@ -1,4 +1,4 @@
-module tb_ram;
+module tb_ram();
     logic clk, tb_nRst, tb_write_enable, tb_read_enable;
     logic [4:0] tb_address_DM, tb_address_IM;
     logic [31:0] tb_data_in, tb_data_out, tb_instr_out;
@@ -20,34 +20,51 @@ ram DUT(.clk(clk), .nRst(tb_nRst), .write_enable(tb_write_enable), .read_enable(
 initial begin
 $dumpfile("dump.vcd");
 $dumpvars;
+tb_nRst = 0;
+@(posedge clk);
+@(negedge clk);
+tb_nRst = 1;
+tb_read_enable = 1;
+   @(negedge clk);
+tb_address_IM = 5'b0;
+tb_address_DM = 5'b0;
+@(posedge clk);
+tb_read_enable = 0;
+
+
 
 tb_read_enable = 1;
-    @(negedge clk);
-
-@(posedge clk);
-tb_address_IM = 0;
-tb_address_DM = 0;
 @(negedge clk);
 @(posedge clk);
-tb_address_IM = 1;
-tb_address_DM = 1;
+tb_read_enable = 0;
 @(negedge clk);
+tb_address_IM = 5'b00001;
+tb_address_DM = 5'b00001;
 @(posedge clk);
-tb_address_IM = 2;
-tb_address_DM = 2;
 
 @(negedge clk);
+
+tb_address_IM = 5'b00010;
+tb_address_DM = 5'b00010;
+tb_read_enable = 1;
 @(posedge clk);
-tb_address_IM = 3;
-tb_address_DM = 3;
+
+
+
 @(negedge clk);
+tb_read_enable = 0;
 @(posedge clk);
+
 @(negedge clk);
+tb_read_enable = 1;
 @(posedge clk);
+
+
 @(negedge clk);
+tb_address_IM = 5'b00011;
+tb_address_DM = 5'b00011;
 @(posedge clk);
-@(negedge clk);
-@(posedge clk);
+
 @(negedge clk);
 @(posedge clk);
 
