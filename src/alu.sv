@@ -38,7 +38,7 @@ always_comb begin
             zero = 0;
     end
     CU_SRL: begin
-        ALUResult = inputA >> inputB;
+        ALUResult = inputA >> inputB[4:0];
         negative = ALUResult[31];
             if (ALUResult == 0)
             zero = 1;
